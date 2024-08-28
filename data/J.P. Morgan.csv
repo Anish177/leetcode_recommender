@@ -1,19 +1,19 @@
-1,1200,Minimum Absolute Difference
-2,2602,Minimum Operations to Make All Array Elements Equal
-3,202,Happy Number
-4,1812,Determine Color of a Chessboard Square
-5,2448,Minimum Cost to Make Array Equal
-6,20,Valid Parentheses
-7,56,Merge Intervals
-8,70,Climbing Stairs
-9,121,Best Time to Buy and Sell Stock
-10,697,Degree of an Array
-11,1247,Minimum Swaps to Make Strings Equal
-12,1418,Display Table of Food Orders in a Restaurant
-13,1625,Lexicographically Smallest String After Applying ...
-14,1843,Suspicious Bank Accounts
-15,2283,Check if Number Has Equal Digit Count and Digit Value
-16,2415,Reverse Odd Levels of Binary Tree
-17,2503,Maximum Number of Points From Grid Queries
-18,2696,Minimum String Length After Removing Substrings
-19,3216,Lexicographically Smallest String After a Swap
+1,1200,Minimum Absolute Difference,Easy,"Array,Sorting"
+2,2602,Minimum Operations to Make All Array Elements Equal,Medium,"Array,Binary Search,Sorting,Prefix Sum"
+3,202,Happy Number,Easy,"Hash Table,Math,Two Pointers"
+4,1812,Determine Color of a Chessboard Square,Easy,"Math,String"
+5,2448,Minimum Cost to Make Array Equal,Hard,"Array,Binary Search,Greedy,Sorting,Prefix Sum"
+6,20,Valid Parentheses,Easy,"String,Stack"
+7,56,Merge Intervals,Medium,"Array,Sorting"
+8,70,Climbing Stairs,Easy,"Math,Dynamic Programming,Memoization"
+9,121,Best Time to Buy and Sell Stock,Easy,"Array,Dynamic Programming"
+10,697,Degree of an Array,Easy,"Array,Hash Table"
+11,1247,Minimum Swaps to Make Strings Equal,Medium,"Math,String,Greedy"
+12,1418,Display Table of Food Orders in a Restaurant,Medium,"Array,Hash Table,String,Sorting,Ordered Set"
+13,1625,Lexicographically Smallest String After Applying Operations,Medium,"String,Depth-First Search,Breadth-First Search,Enumeration"
+14,1843,Suspicious Bank Accounts,Medium,Database
+15,2283,Check if Number Has Equal Digit Count and Digit Value,Easy,"Hash Table,String,Counting"
+16,2415,Reverse Odd Levels of Binary Tree,Medium,"Tree,Depth-First Search,Breadth-First Search,Binary Tree"
+17,2503,Maximum Number of Points From Grid Queries,Hard,"Array,Two Pointers,Breadth-First Search,Union Find,Sorting,Heap (Priority Queue),Matrix"
+18,2696,Minimum String Length After Removing Substrings,Easy,"String,Stack,Simulation"
+19,3216,Lexicographically Smallest String After a Swap,Easy,"String,Greedy"

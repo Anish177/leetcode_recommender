@@ -1,18 +1,18 @@
-1,211,Design Add and Search Words Data Structure
-2,528,Random Pick with Weight
-3,2132,Stamping the Grid
-4,2249,Count Lattice Points Inside a Circle
-5,72,Edit Distance
-6,87,Scramble String
-7,621,Task Scheduler
-8,723,Candy Crush
-9,1188,Design Bounded Blocking Queue
-10,1242,Web Crawler Multithreaded
-11,1463,Cherry Pickup II
-12,2296,Design a Text Editor
-13,2928,Distribute Candies Among Children I
-14,2929,Distribute Candies Among Children II
-15,2927,Distribute Candies Among Children III
-16,3021,Alice and Bob Playing Flower Game
-17,3098,Find the Sum of Subsequence Powers
-18,3083,Existence of a Substring in a String and Its Reverse
+1,211,Design Add and Search Words Data Structure,Medium,"String,Depth-First Search,Design,Trie"
+2,528,Random Pick with Weight,Medium,"Array,Math,Binary Search,Prefix Sum,Randomized"
+3,2132,Stamping the Grid,Hard,"Array,Greedy,Matrix,Prefix Sum"
+4,2249,Count Lattice Points Inside a Circle,Medium,"Array,Hash Table,Math,Geometry,Enumeration"
+5,72,Edit Distance,Medium,"String,Dynamic Programming"
+6,87,Scramble String,Hard,"String,Dynamic Programming"
+7,621,Task Scheduler,Medium,"Array,Hash Table,Greedy,Sorting,Heap (Priority Queue),Counting"
+8,723,Candy Crush,Medium,"Array,Two Pointers,Matrix,Simulation"
+9,1188,Design Bounded Blocking Queue,Medium,Concurrency
+10,1242,Web Crawler Multithreaded,Medium,"Depth-First Search,Breadth-First Search,Concurrency"
+11,1463,Cherry Pickup II,Hard,"Array,Dynamic Programming,Matrix"
+12,2296,Design a Text Editor,Hard,"Linked List,String,Stack,Design,Simulation,Doubly-Linked List"
+13,2928,Distribute Candies Among Children I,Easy,"Math,Combinatorics,Enumeration"
+14,2929,Distribute Candies Among Children II,Medium,"Math,Combinatorics,Enumeration"
+15,2927,Distribute Candies Among Children III,Hard,"Math,Combinatorics"
+16,3021,Alice and Bob Playing Flower Game,Medium,Math
+17,3098,Find the Sum of Subsequence Powers,Hard,"Array,Dynamic Programming,Sorting"
+18,3083,Existence of a Substring in a String and Its Reverse,Easy,"Hash Table,String"

@@ -1,13 +1,13 @@
-1,965,Univalued Binary Tree
-2,1507,Reformat Date
-3,2592,Maximize Greatness of an Array
-4,68,Text Justification
-5,146,LRU Cache
-6,332,Reconstruct Itinerary
-7,13,Roman to Integer
-8,17,Letter Combinations of a Phone Number
-9,41,First Missing Positive
-10,53,Maximum Subarray
-11,127,Word Ladder
-12,1963,Minimum Number of Swaps to Make the String ...
-13,2918,Minimum Equal Sum of Two Arrays After Replacing ...
+1,965,Univalued Binary Tree,Easy,"Tree,Depth-First Search,Breadth-First Search,Binary Tree"
+2,1507,Reformat Date,Easy,String
+3,2592,Maximize Greatness of an Array,Medium,"Array,Two Pointers,Greedy,Sorting"
+4,68,Text Justification,Hard,"Array,String,Simulation"
+5,146,LRU Cache,Medium,"Hash Table,Linked List,Design,Doubly-Linked List"
+6,332,Reconstruct Itinerary,Hard,"Depth-First Search,Graph,Eulerian Circuit"
+7,13,Roman to Integer,Easy,"Hash Table,Math,String"
+8,17,Letter Combinations of a Phone Number,Medium,"Hash Table,String,Backtracking"
+9,41,First Missing Positive,Hard,"Array,Hash Table"
+10,53,Maximum Subarray,Medium,"Array,Divide and Conquer,Dynamic Programming"
+11,127,Word Ladder,Hard,"Hash Table,String,Breadth-First Search"
+12,1963,Minimum Number of Swaps to Make the String Balanced,Medium,"Two Pointers,String,Stack,Greedy"
+13,2918,Minimum Equal Sum of Two Arrays After Replacing Zeros,Medium,"Array,Greedy"

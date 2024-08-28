@@ -1,37 +1,37 @@
-1,1,Two Sum
-2,2667,Create Hello World Function
-3,88,Merge Sorted Array
-4,1757,Recyclable and Low Fat Products
-5,959,Regions Cut By Slashes
-6,42,Trapping Rain Water
-7,1768,Merge Strings Alternately
-8,2,Add Two Numbers
-9,7,Reverse Integer
-10,9,Palindrome Number
-11,70,Climbing Stairs
-12,2955,Number of Same-End Substrings
-13,3054,Binary Tree Nodes
-14,121,Best Time to Buy and Sell Stock
-15,273,Integer to English Words
-16,359,Logger Rate Limiter
-17,1526,Minimum Number of Increments on Subarrays to For ...
-18,5,Longest Palindromic Substring
-19,3,Longest Substring Without Repeating Characters
-20,11,Container With Most Water
-21,14,Longest Common Prefix
-22,15,3Sum
-23,885,Spiral Matrix III
-24,1825,Finding MK Average
-25,1937,Maximum Number of Points with Cost
-26,40,Combination Sum II
-27,41,First Missing Positive
-28,84,Largest Rectangle in Histogram
-29,206,Reverse Linked List
-30,876,Middle of the Linked List
-31,1071,Greatest Common Divisor of Strings
-32,13,Roman to Integer
-33,31,Next Permutation
-34,2101,Detonate the Maximum Bombs
-35,22,Generate Parentheses
-36,715,Range Module
-37,2458,Height of Binary Tree After Subtree Removal Queries
+1,1,Two Sum,Easy,"Array,Hash Table"
+2,2667,Create Hello World Function,Easy,"JS,TS"
+3,88,Merge Sorted Array,Easy,"Array,Two Pointers,Sorting"
+4,1757,Recyclable and Low Fat Products,Easy,Database
+5,959,Regions Cut By Slashes,Medium,"Array,Hash Table,Depth-First Search,Breadth-First Search,Union Find,Matrix"
+6,42,Trapping Rain Water,Hard,"Array,Two Pointers,Dynamic Programming,Stack,Monotonic Stack"
+7,1768,Merge Strings Alternately,Easy,"Two Pointers,String"
+8,2,Add Two Numbers,Medium,"Linked List,Math,Recursion"
+9,7,Reverse Integer,Medium,Math
+10,9,Palindrome Number,Easy,Math
+11,70,Climbing Stairs,Easy,"Math,Dynamic Programming,Memoization"
+12,2955,Number of Same-End Substrings,Medium,"Array,Hash Table,String,Counting,Prefix Sum"
+13,3054,Binary Tree Nodes,Medium,Database
+14,121,Best Time to Buy and Sell Stock,Easy,"Array,Dynamic Programming"
+15,273,Integer to English Words,Hard,"Math,String,Recursion"
+16,359,Logger Rate Limiter,Easy,"Hash Table,Design,Data Stream"
+17,1526,Minimum Number of Increments on Subarrays to Form a Target Array,Hard,"Array,Dynamic Programming,Stack,Greedy,Monotonic Stack"
+18,5,Longest Palindromic Substring,Medium,"Two Pointers,String,Dynamic Programming"
+19,3,Longest Substring Without Repeating Characters,Medium,"Hash Table,String,Sliding Window"
+20,11,Container With Most Water,Medium,"Array,Two Pointers,Greedy"
+21,14,Longest Common Prefix,Easy,"String,Trie"
+22,15,3Sum,Medium,"Array,Two Pointers,Sorting"
+23,885,Spiral Matrix III,Medium,"Array,Matrix,Simulation"
+24,1825,Finding MK Average,Hard,"Design,Queue,Heap (Priority Queue),Data Stream,Ordered Set"
+25,1937,Maximum Number of Points with Cost,Medium,"Array,Dynamic Programming,Matrix"
+26,40,Combination Sum II,Medium,"Array,Backtracking"
+27,41,First Missing Positive,Hard,"Array,Hash Table"
+28,84,Largest Rectangle in Histogram,Hard,"Array,Stack,Monotonic Stack"
+29,206,Reverse Linked List,Easy,"Linked List,Recursion"
+30,876,Middle of the Linked List,Easy,"Linked List,Two Pointers"
+31,1071,Greatest Common Divisor of Strings,Easy,"Math,String"
+32,13,Roman to Integer,Easy,"Hash Table,Math,String"
+33,31,Next Permutation,Medium,"Array,Two Pointers"
+34,2101,Detonate the Maximum Bombs,Medium,"Array,Math,Depth-First Search,Breadth-First Search,Graph,Geometry"
+35,22,Generate Parentheses,Medium,"String,Dynamic Programming,Backtracking"
+36,715,Range Module,Hard,"Design,Segment Tree,Ordered Set"
+37,2458,Height of Binary Tree After Subtree Removal Queries,Hard,"Array,Tree,Depth-First Search,Breadth-First Search,Binary Tree"

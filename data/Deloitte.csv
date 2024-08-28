@@ -1,12 +1,12 @@
-1,1,Two Sum
-2,7,Reverse Integer
-3,9,Palindrome Number
-4,20,Valid Parentheses
-5,53,Maximum Subarray
-6,70,Climbing Stairs
-7,118,Pascal's Triangle
-8,121,Best Time to Buy and Sell Stock
-9,125,Valid Palindrome
-10,180,Consecutive Numbers
-11,845,Longest Mountain in Array
-12,2388,Change Null Values in a Table to the Previous Value
+1,1,Two Sum,Easy,"Array,Hash Table"
+2,7,Reverse Integer,Medium,Math
+3,9,Palindrome Number,Easy,Math
+4,20,Valid Parentheses,Easy,"String,Stack"
+5,53,Maximum Subarray,Medium,"Array,Divide and Conquer,Dynamic Programming"
+6,70,Climbing Stairs,Easy,"Math,Dynamic Programming,Memoization"
+7,118,Pascal's Triangle,Easy,"Array,Dynamic Programming"
+8,121,Best Time to Buy and Sell Stock,Easy,"Array,Dynamic Programming"
+9,125,Valid Palindrome,Easy,"Two Pointers,String"
+10,180,Consecutive Numbers,Medium,Database
+11,845,Longest Mountain in Array,Medium,"Array,Two Pointers,Dynamic Programming,Enumeration"
+12,2388,Change Null Values in a Table to the Previous Value,Medium,Database

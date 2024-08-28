@@ -1,13 +1,13 @@
-1,2742,Painting the Walls
-2,55,Jump Game
-3,2771,Longest Non-decreasing Subarray From Two Arrays
-4,2930,Number of Strings Which Can Be Rearranged to ...
-5,2959,Number of Possible Sets of Closing Branches
-6,2953,Count Complete Substrings
-7,2858,Minimum Edge Reversals So Every Node Is Reachable
-8,827,Making A Large Island
-9,1326,Minimum Number of Taps to Open to Water a Garden
-10,2565,Subsequence With the Minimum Score
-11,735,Asteroid Collision
-12,740,Delete and Earn
-13,2831,Find the Longest Equal Subarray
+1,2742,Painting the Walls,Hard,"Array,Dynamic Programming"
+2,55,Jump Game,Medium,"Array,Dynamic Programming,Greedy"
+3,2771,Longest Non-decreasing Subarray From Two Arrays,Medium,"Array,Dynamic Programming"
+4,2930,Number of Strings Which Can Be Rearranged to ...,Medium,"Math,Dynamic Programming,Combinatorics"
+5,2959,Number of Possible Sets of Closing Branches,Hard,"Bit Manipulation,Graph,Heap (Priority Queue),Enumeration,Shortest Path"
+6,2953,Count Complete Substrings,Hard,"Hash Table,String,Sliding Window"
+7,2858,Minimum Edge Reversals So Every Node Is Reachable,Hard,"Dynamic Programming,Depth-First Search,Breadth-First Search,Graph"
+8,827,Making A Large Island,Hard,"Array,Depth-First Search,Breadth-First Search,Union Find,Matrix"
+9,1326,Minimum Number of Taps to Open to Water a Garden,Hard,"Array,Dynamic Programming,Greedy"
+10,2565,Subsequence With the Minimum Score,Hard,"Two Pointers,String,Binary Search"
+11,735,Asteroid Collision,Medium,"Array,Stack,Simulation"
+12,740,Delete and Earn,Medium,"Array,Hash Table,Dynamic Programming"
+13,2831,Find the Longest Equal Subarray,Medium,"Array,Hash Table,Binary Search,Sliding Window"

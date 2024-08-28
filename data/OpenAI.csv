@@ -1,6 +1,6 @@
-1,631,Design Excel Sum Formula
-2,2408,Design SQL
-3,733,Flood Fill
-4,71,Simplify Path
-5,981,Time Based Key-Value Store
-6,1242,Web Crawler Multithreaded
+1,631,Design Excel Sum Formula,H,"Array,Graph,Design,Topological Sort,Matrix"
+2,2408,Design SQL,Medium,"Array,Hash Table,String,Design"
+3,733,Flood Fill,Easy,"Array,Depth-First Search,Breadth-First Search,Matrix"
+4,71,Simplify Path,Medium,"String,Stack"
+5,981,Time Based Key-Value Store,Medium,"Hash Table,String,Binary Search,Design"
+6,1242,Web Crawler Multithreaded,Medium,"Depth-First Search,Breadth-First Search,Concurrency"

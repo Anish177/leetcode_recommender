@@ -1,22 +1,22 @@
-1,1,Two Sum
-2,121,Best Time to Buy and Sell Stock
-3,319,Bulb Switcher
-4,5,Longest Palindromic Substring
-5,11,Container With Most Water
-6,20,Valid Parentheses
-7,53,Maximum Subarray
-8,54,Spiral Matrix
-9,66,Plus One
-10,72,Edit Distance
-11,151,Reverse Words in a String
-12,160,Intersection of Two Linked Lists
-13,198,House Robber
-14,455,Assign Cookies
-15,1636,Sort Array by Increasing Frequency
-16,2099,Find Subsequence of Length K With the Largest Sum
-17,2855,Minimum Right Shifts to Sort the Array
-18,2859,Sum of Values at Indices With K Set Bits
-19,2960,Count Tested Devices After Test Operations
-20,3000,Maximum Area of Longest Diagonal Rectangle
-21,3028,Ant on the Boundary
-22,3146,Permutation Difference between Two Strings
+1,1,Two Sum,Easy,"Array,Hash Table"
+2,121,Best Time to Buy and Sell Stock,Easy,"Array,Dynamic Programming"
+3,319,Bulb Switcher,Medium,"Math,Brainteaser"
+4,5,Longest Palindromic Substring,Medium,"Two Pointers,String,Dynamic Programming"
+5,11,Container With Most Water,Medium,"Array,Two Pointers,Greedy"
+6,20,Valid Parentheses,Easy,"String,Stack"
+7,53,Maximum Subarray,Medium,"Array,Divide and Conquer,Dynamic Programming"
+8,54,Spiral Matrix,Medium,"Array,Matrix,Simulation"
+9,66,Plus One,Easy,"Array,Math"
+10,72,Edit Distance,Medium,"String,Dynamic Programming"
+11,151,Reverse Words in a String,Medium,"Two Pointers,String"
+12,160,Intersection of Two Linked Lists,Easy,"Hash Table,Linked List,Two Pointers"
+13,198,House Robber,Medium,"Array,Dynamic Programming"
+14,455,Assign Cookies,Easy,"Array,Two Pointers,Greedy,Sorting"
+15,1636,Sort Array by Increasing Frequency,Easy,"Array,Hash Table,Sorting"
+16,2099,Find Subsequence of Length K With the Largest Sum,Easy,"Array,Hash Table,Sorting,Heap (Priority Queue)"
+17,2855,Minimum Right Shifts to Sort the Array,Easy,Array
+18,2859,Sum of Values at Indices With K Set Bits,Easy,"Array,Bit Manipulation"
+19,2960,Count Tested Devices After Test Operations,Easy,"Array,Simulation"
+20,3000,Maximum Area of Longest Diagonal Rectangle,Easy,Array
+21,3028,Ant on the Boundary,Easy,"Array,Simulation,Prefix Sum"
+22,3146,Permutation Difference between Two Strings,Easy,"Hash Table,String"

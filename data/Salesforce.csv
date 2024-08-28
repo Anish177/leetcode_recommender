@@ -1,48 +1,48 @@
-1,1268,Search Suggestions System
-2,713,Subarray Product Less Than K
-3,1326,Minimum Number of Taps to Open to Water a Garden
-4,2296,Design a Text Editor
-5,2484,Count Palindromic Subsequences
-6,2966,Divide Array Into Arrays With Max Difference
-7,3171,Find Subarray With Bitwise OR Closest to K
-8,1,Two Sum
-9,139,Word Break
-10,146,LRU Cache
-11,696,Count Binary Substrings
-12,1315,Sum of Nodes with Even-Valued Grandparent
-13,1492,The kth Factor of n
-14,2592,Maximize Greatness of an Array
-15,12,Integer to Roman
-16,42,Trapping Rain Water
-17,50,"Pow(x, n)"
-18,51,N-Queens
-19,56,Merge Intervals
-20,221,Maximal Square
-21,233,Number of Digit One
-22,236,Lowest Common Ancestor of a Binary Tree
-23,283,Move Zeroes
-24,410,Split Array Largest Sum
-25,494,Target Sum
-26,739,Daily Temperatures
-27,831,Masking Personal Information
-28,895,Maximum Frequency Stack
-29,1150,Check If a Number Is Majority Element in a Sorted ...
-30,1051,Height Checker
-31,1552,Magnetic Force Between Two Balls
-32,1659,Maximize Grid Happiness
-33,1701,Average Waiting Time
-34,2035,Partition Array Into Two Arrays to Minimize Sum ....
-35,2068,Check Whether Two Strings are Almost Equivalent
-36,2563,Count the Number of Fair Pairs
-37,2866,Beautiful Towers II
-38,2865,Beautiful Towers I
-39,2946,Matrix Similarity After Cydic Shifts
-40,2954,Count the Number of Infection Sequences
-41,2957,Remove Adjacent Almost-Equal Characters
-42,2992,Number of Self-Divisible Permutations
-43,3125,Maximum Number That Makes Result of Bitwise AN ...
-44,3135,Equalize Strings by Adding or Removing Characters a ...
-45,3197,Find the Minimum Area to Cover All Ones II
-46,3193,Count the Number of Inversions
-47,3195,Find the Minimum Area to Cover All Ones I
-48,3200,Maximum Height of a Triangle
+1,1268,Search Suggestions System,Medium,"Array,String,Binary Search,Trie,Sorting,Heap (Priority Queue)"
+2,713,Subarray Product Less Than K,Medium,"Array,Sliding Window"
+3,1326,Minimum Number of Taps to Open to Water a Garden,Hard,"Array,Dynamic Programming,Greedy"
+4,2296,Design a Text Editor,Hard,"Linked List,String,Stack,Design,Simulation,Doubly-Linked List"
+5,2484,Count Palindromic Subsequences,Hard,"String,Dynamic Programming"
+6,2966,Divide Array Into Arrays With Max Difference,Medium,"Array,Greedy,Sorting"
+7,3171,Find Subarray With Bitwise OR Closest to K,Hard,"Array,Binary Search,Bit Manipulation,Segment Tree"
+8,1,Two Sum,Easy,"Array,Hash Table"
+9,139,Word Break,Medium,"Array,Hash Table,String,Dynamic Programming,Trie,Memoization"
+10,146,LRU Cache,Medium,"Hash Table,Linked List,Design,Doubly-Linked List"
+11,696,Count Binary Substrings,Easy,"Two Pointers,String"
+12,1315,Sum of Nodes with Even-Valued Grandparent,Medium,"Tree,Depth-First Search,Breadth-First Search,Binary Tree"
+13,1492,The kth Factor of n,Medium,"Math,Number Theory"
+14,2592,Maximize Greatness of an Array,Medium,"Array,Two Pointers,Greedy,Sorting"
+15,12,Integer to Roman,Medium,"Hash Table,Math,String"
+16,42,Trapping Rain Water,Hard,"Array,Two Pointers,Dynamic Programming,Stack,Monotonic Stack"
+17,50,"Pow(x, n)",Medium,"Math,Recursion"
+18,51,N-Queens,Hard,"Array,Backtracking"
+19,56,Merge Intervals,Medium,"Array,Sorting"
+20,221,Maximal Square,Medium,"Array,Dynamic Programming,Matrix"
+21,233,Number of Digit One,Hard,"Math,Dynamic Programming,Recursion"
+22,236,Lowest Common Ancestor of a Binary Tree,Medium,"Tree,Depth-First Search,Binary Tree"
+23,283,Move Zeroes,Easy,"Array,Two Pointers"
+24,410,Split Array Largest Sum,Hard,"Array,Binary Search,Dynamic Programming,Greedy,Prefix Sum"
+25,494,Target Sum,Medium,"Array,Dynamic Programming,Backtracking"
+26,739,Daily Temperatures,Medium,"Array,Stack,Monotonic Stack"
+27,831,Masking Personal Information,Medium,String
+28,895,Maximum Frequency Stack,Hard,"Hash Table,Stack,Design,Ordered Set"
+29,1150,Check If a Number Is Majority Element in a Sorted Array,Easy,"Array,Binary Search"
+30,1051,Height Checker,Easy,"Array,Sorting,Counting Sort"
+31,1552,Magnetic Force Between Two Balls,Medium,"Array,Binary Search,Sorting"
+32,1659,Maximize Grid Happiness,Hard,"Dynamic Programming,Bit Manipulation,Memoization,Bitmask"
+33,1701,Average Waiting Time,Medium,"Array,Simulation"
+34,2035,Partition Array Into Two Arrays to Minimize Sum ....,Hard,"Array,Two Pointers,Binary Search,Dynamic Programming,Bit Manipulation,Ordered Set,Bitmask"
+35,2068,Check Whether Two Strings are Almost Equivalent,Easy,"Hash Table,String,Counting"
+36,2563,Count the Number of Fair Pairs,Medium,"Array,Two Pointers,Binary Search,Sorting"
+37,2866,Beautiful Towers II,Medium,"Array,Stack,Monotonic Stack"
+38,2865,Beautiful Towers I,Medium,"Array,Stack,Monotonic Stack"
+39,2946,Matrix Similarity After Cydic Shifts,Easy,"Array,Math,Matrix,Simulation"
+40,2954,Count the Number of Infection Sequences,Hard,"Array,Math,Combinatorics"
+41,2957,Remove Adjacent Almost-Equal Characters,Medium,"String,Dynamic Programming,Greedy"
+42,2992,Number of Self-Divisible Permutations,Medium,"Array,Dynamic Programming,Backtracking,Bit Manipulation,Bitmask"
+43,3125,Maximum Number That Makes Result of Bitwise AND Zero,Medium,"String,Greedy,Sorting"
+44,3135,Equalize Strings by Adding or Removing Characters at Ends,Medium,"String,Binary Search,Dynamic Programming,Sliding Window,Hash Function"
+45,3197,Find the Minimum Area to Cover All Ones II,Hard,"Array,Matrix,Enumeration"
+46,3193,Count the Number of Inversions,Hard,"Array,Dynamic Programming"
+47,3195,Find the Minimum Area to Cover All Ones I,Medium,"Array,Matrix"
+48,3200,Maximum Height of a Triangle,Easy,"Array,Enumeration"

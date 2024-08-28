@@ -1,24 +1,24 @@
-1,6,Zigzag Conversion
-2,79,Word Search
-3,560,Subarray Sum Equals K
-4,1283,Find the Smallest Divisor Given a Threshold
-5,2380,Time Needed to Rearrange a Binary String
-6,49,Group Anagrams
-7,146,LRU Cache
-8,198,House Robber
-9,200,Number of Islands
-10,212,Word Search II
-11,347,Top K Frequent Elements
-12,1010,Pairs of Songs With Total Durations Divisible by 60
-13,1229,Meeting Scheduler
-14,1473,Paint House III
-15,1589,Maximum Sum Obtained of Any Permutation
-16,1969,Minimum Non-Zero Product of the Array Elements
-17,1999,Smallest Greater Multiple Made of Two Digits
-18,2056,Number of Valid Move Combinations On Chessboard
-19,2183,Count Array Pairs Divisible by K
-20,2554,Maximum Number of Integers to Choose From a ...
-21,2586,Count the Number of Vowel Strings in Range
-22,2524,Maximum Frequency Score of a Subarray
-23,2559,Count Vowel Strings in Ranges
-24,2557,Maximum Number of Integers to Choose From a ...
+1,6,Zigzag Conversion,Medium,String
+2,79,Word Search,Medium,"Array,String,Backtracking,Matrix"
+3,560,Subarray Sum Equals K,Medium,"Array,Hash Table,Prefix Sum"
+4,1283,Find the Smallest Divisor Given a Threshold,Medium,"Array,Binary Search"
+5,2380,Time Needed to Rearrange a Binary String,Medium,"String,Dynamic Programming,Simulation"
+6,49,Group Anagrams,Medium,"Array,Hash Table,String,Sorting"
+7,146,LRU Cache,Medium,"Hash Table,Linked List,Design,Doubly-Linked List"
+8,198,House Robber,Medium,"Array,Dynamic Programming"
+9,200,Number of Islands,Medium,"Array,Depth-First Search,Breadth-First Search,Union Find,Matrix"
+10,212,Word Search II,Hard,"Array,String,Backtracking,Trie,Matrix"
+11,347,Top K Frequent Elements,Medium,"Array,Hash Table,Divide and Conquer,Sorting,Heap (Priority Queue),Bucket Sort,Counting,Quickselect"
+12,1010,Pairs of Songs With Total Durations Divisible by 60,Medium,"Array,Hash Table,Counting"
+13,1229,Meeting Scheduler,Medium,"Array,Two Pointers,Sorting"
+14,1473,Paint House III,Hard,"Array,Dynamic Programming"
+15,1589,Maximum Sum Obtained of Any Permutation,Medium,"Array,Greedy,Sorting,Prefix Sum"
+16,1969,Minimum Non-Zero Product of the Array Elements,Medium,"Math,Greedy,Recursion"
+17,1999,Smallest Greater Multiple Made of Two Digits,Medium,"Math,Enumeration"
+18,2056,Number of Valid Move Combinations On Chessboard,Hard,"Array,String,Backtracking,Simulation"
+19,2183,Count Array Pairs Divisible by K,Hard,"Array,Math,Number Theory"
+20,2554,Maximum Number of Integers to Choose From a Range I,Medium,"Array,Hash Table,Binary Search,Greedy,Sorting"
+21,2586,Count the Number of Vowel Strings in Range,Easy,"Array,String"
+22,2524,Maximum Frequency Score of a Subarray,Hard,"Array,Hash Table,Math,Sliding Window"
+23,2559,Count Vowel Strings in Ranges,Medium,"Array,String,Prefix Sum"
+24,2557,Maximum Number of Integers to Choose From a Range II,Medium,"Array,Binary Search,Greedy,Sorting"

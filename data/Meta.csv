@@ -1,51 +1,51 @@
-1,88,Merge Sorted Array
-2,408,Valid Word Abbreviation
-3,680,Valid Palindrome II
-4,1249,Minimum Remove to Make Valid Parentheses
-5,1,Two Sum
-6,973,K Closest Points to Origin
-7,56,Merge Intervals
-8,215,Kth Largest Element in an Array
-9,314,Binary Tree Vertical Order Traversal
-10,339,Nested List Weight Sum
-11,938,Range Sum of BST
-12,50,"Pow(x, n)"
-13,71,Simplify Path
-14,125,Valid Palindrome
-15,236,Lowest Common Ancestor of a Binary Tree
-16,543,Diameter of Binary Tree
-17,2,Add Two Numbers
-18,7,Reverse Integer
-19,34,Find First and Last Position of Element in Sorted Array
-20,146,LRU Cache
-21,162,Find Peak Element
-22,199,Binary Tree Right Side View
-23,227,Basic Calculator II
-24,523,Continuous Subarray Sum
-25,827,Making A Large Island
-26,1570,Dot Product of Two Sparse Vectors
-27,1650,Lowest Common Ancestor of a Binary Tree III
-28,2667,Create Hello World Function
-29,70,Climbing Stairs
-30,76,Minimum Window Substring
-31,84,Largest Rectangle in Histogram
-32,200,Number of Islands
-33,273,Integer to English Words
-34,560,Subarray Sum Equals K
-35,1004,Max Consecutive Ones III
-36,1091,Shortest Path in Binary Matrix
-37,1768,Merge Strings Alternately
-38,5,Longest Palindromic Substring
-39,11,Container With Most Water
-40,15,3Sum
-41,17,Letter Combinations of a Phone Number
-42,23,Merge k Sorted Lists
-43,28,Find the Index of the First Occurrence in a String
-44,33,Search in Rotated Sorted Array
-45,38,Count and Say
-46,42,Trapping Rain Water
-47,53,Maximum Subarray
-48,65,Valid Number
-49,69,Sqrt(x)
-50,121,Best Time to Buy and Sell Stock
-51,138,Copy List with Random Pointer
+1,88,Merge Sorted Array,Easy,"Array,Two Pointers,Sorting"
+2,408,Valid Word Abbreviation,Easy,"Two Pointers,String"
+3,680,Valid Palindrome II,Easy,"Two Pointers,String,Greedy"
+4,1249,Minimum Remove to Make Valid Parentheses,Medium,"String,Stack"
+5,1,Two Sum,Easy,"Array,Hash Table"
+6,973,K Closest Points to Origin,Medium,"Array,Math,Divide and Conquer,Geometry,Sorting,Heap (Priority Queue),Quickselect"
+7,56,Merge Intervals,Medium,"Array,Sorting"
+8,215,Kth Largest Element in an Array,Medium,"Array,Divide and Conquer,Sorting,Heap (Priority Queue),Quickselect"
+9,314,Binary Tree Vertical Order Traversal,Medium,"Hash Table,Tree,Depth-First Search,Breadth-First Search,Sorting,Binary Tree"
+10,339,Nested List Weight Sum,Medium,"Depth-First Search,Breadth-First Search"
+11,938,Range Sum of BST,Easy,"Tree,Depth-First Search,Binary Search Tree,Binary Tree"
+12,50,"Pow(x, n)",Medium,"Math,Recursion"
+13,71,Simplify Path,Medium,"String,Stack"
+14,125,Valid Palindrome,Easy,"Two Pointers,String"
+15,236,Lowest Common Ancestor of a Binary Tree,Medium,"Tree,Depth-First Search,Binary Tree"
+16,543,Diameter of Binary Tree,Easy,"Tree,Depth-First Search,Binary Tree"
+17,2,Add Two Numbers,Medium,"Linked List,Math,Recursion"
+18,7,Reverse Integer,Medium,Math
+19,34,Find First and Last Position of Element in Sorted Array,Medium,"Array,Binary Search"
+20,146,LRU Cache,Medium,"Hash Table,Linked List,Design,Doubly-Linked List"
+21,162,Find Peak Element,Medium,"Array,Binary Search"
+22,199,Binary Tree Right Side View,Medium,"Tree,Depth-First Search,Breadth-First Search,Binary Tree"
+23,227,Basic Calculator II,Medium,"Math,String,Stack"
+24,523,Continuous Subarray Sum,Medium,"Array,Hash Table,Math,Prefix Sum"
+25,827,Making A Large Island,Hard,"Array,Depth-First Search,Breadth-First Search,Union Find,Matrix"
+26,1570,Dot Product of Two Sparse Vectors,Medium,"Array,Hash Table,Two Pointers,Design"
+27,1650,Lowest Common Ancestor of a Binary Tree III,Medium,"Hash Table,Two Pointers,Tree,Binary Tree"
+28,2667,Create Hello World Function,Easy,"JS,TS"
+29,70,Climbing Stairs,Easy,"Math,Dynamic Programming,Memoization"
+30,76,Minimum Window Substring,Hard,"Hash Table,String,Sliding Window"
+31,84,Largest Rectangle in Histogram,Hard,"Array,Stack,Monotonic Stack"
+32,200,Number of Islands,Medium,"Array,Depth-First Search,Breadth-First Search,Union Find,Matrix"
+33,273,Integer to English Words,Hard,"Math,String,Recursion"
+34,560,Subarray Sum Equals K,Medium,"Array,Hash Table,Prefix Sum"
+35,1004,Max Consecutive Ones III,Medium,"Array,Binary Search,Sliding Window,Prefix Sum"
+36,1091,Shortest Path in Binary Matrix,Medium,"Array,Breadth-First Search,Matrix"
+37,1768,Merge Strings Alternately,Easy,"Two Pointers,String"
+38,5,Longest Palindromic Substring,Medium,"Two Pointers,String,Dynamic Programming"
+39,11,Container With Most Water,Medium,"Array,Two Pointers,Greedy"
+40,15,3Sum,Medium,"Array,Two Pointers,Sorting"
+41,17,Letter Combinations of a Phone Number,Medium,"Hash Table,String,Backtracking"
+42,23,Merge k Sorted Lists,Hard,"Linked List,Divide and Conquer,Heap (Priority Queue),Merge Sort"
+43,28,Find the Index of the First Occurrence in a String,Easy,"Two Pointers,String,String Matching"
+44,33,Search in Rotated Sorted Array,Medium,"Array,Binary Search"
+45,38,Count and Say,Medium,String
+46,42,Trapping Rain Water,Hard,"Array,Two Pointers,Dynamic Programming,Stack,Monotonic Stack"
+47,53,Maximum Subarray,Medium,"Array,Divide and Conquer,Dynamic Programming"
+48,65,Valid Number,Hard,String
+49,69,Sqrt(x),Easy,"Math,Binary Search"
+50,121,Best Time to Buy and Sell Stock,Easy,"Array,Dynamic Programming"
+51,138,Copy List with Random Pointer,Medium,"Hash Table,Linked List"
