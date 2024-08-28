@@ -15,7 +15,7 @@ def load_questions():
             company = filename[:-4]
             companies.append(company)
             questions[company] = []
-            with open(os.path.join('data', filename), 'r') as f:
+            with open(os.path.join('data', filename), 'r', encoding='utf-8') as f:
                 reader = csv.reader(f)
                 for row in reader:
                     questions[company].append({
@@ -29,7 +29,7 @@ def load_questions():
     for company_questions in questions.values():
         all_questions.update((q['id'], q['name']) for q in company_questions)
     
-    questions['General'] = [
+    questions['All'] = [
         {
             'id': q[0],
             'name': q[1],
@@ -38,7 +38,7 @@ def load_questions():
         } for q in all_questions
     ]
     
-    return questions, ['General'] + sorted(companies)
+    return questions, ['All'] + sorted(companies)
 
 questions, companies = load_questions()
 
@@ -71,7 +71,7 @@ def update_progress():
             q['completed'] = completed
             break
     
-    # Update the "General" category as well
+    
     if company != 'General':
         for q in questions['General']:
             if q['id'] == question_id:
