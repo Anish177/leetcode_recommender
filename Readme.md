@@ -7,4 +7,4 @@ A SPA created using Flask to practice better for coding interviews.
 - Recommends questions to solve next
 - Monitor progress
 
-- WIP - come back later to see the system in action.
+~ WIP ~ come back later to see the system in action.
