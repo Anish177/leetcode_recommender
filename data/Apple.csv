@@ -1,0 +1,68 @@
+1,200,Number of Islands
+2,1,Two Sum
+3,14,Longest Common Prefix
+4,3,Longest Substring Without Repeating Characters
+5,49,Group Anagrams
+6,55,Jump Game
+7,191,Number of 1 Bits
+8,7,Reverse Integer
+9,48,Rotate Image
+10,151,Reverse Words in a String
+11,165,Compare Version Numbers
+12,190,Reverse Bits
+13,394,Decode String
+14,680,Valid Palindrome II
+15,36,Valid Sudoku
+16,42,Trapping Rain Water
+17,53,Maximum Subarray
+18,67,Add Binary
+19,71,Simplify Path
+20,118,Pascal's Triangle
+21,122,Best Time to Buy and Sell Stock II
+22,149,Max Points on a Line
+23,238,Product of Array Except Self
+24,2023,Number of Pairs of Strings With Concatenation Equal ...
+25,4,Median of Two Sorted Arrays
+26,21,Merge Two Sorted Lists
+27,23,Merge k Sorted Lists
+28,28,Find the Index of the First Occurrence in a String
+29,33,Search in Rotated Sorted Array
+30,56,Merge Intervals
+31,69,Sqrt(x)
+32,70,Climbing Stairs
+33,91,Decode Ways
+34,92,Reverse Linked List II
+35,97,Interleaving String
+36,102,Binary Tree Level Order Traversal
+37,104,Maximum Depth of Binary Tree
+38,121,Best Time to Buy and Sell Stock
+39,206,Reverse Linked List
+40,207,Course Schedule
+41,208,Implement Trie (Prefix Tree)
+42,213,House Robber II
+43,215,Kth Largest Element in an Array
+44,221,Maximal Square
+45,236,Lowest Common Ancestor of a Binary Tree
+46,237,Delete Node in a Linked List
+47,240,Search a 2D Matrix II
+48,242,Valid Anagram
+49,253,Meeting Rooms II
+50,257,Binary Tree Paths
+51,284,Peeking Iterator
+52,383,Ransom Note
+53,424,Longest Repeating Character Replacement
+54,443,String Compression
+55,560,Subarray Sum Equals K
+56,565,Array Nesting
+57,706,Design HashMap
+58,909,Snakes and Ladders
+59,996,Number of Squareful Arrays
+60,1275,Find Winner on a Tic Tac Toe Game
+61,1344,Angle Between Hands of a Clock
+62,1552,Magnetic Force Between Two Balls
+63,1657,Determine if Two Strings Are Close
+64,2397,Maximum Rows Covered by Columns
+65,2972,Count the Number of Incremovable Subarrays II
+66,2970,Count the Number of Incremovable Subarrays I
+67,3030,Find the Grid of Region Average
+68,3040,Maximum Number of Operations With the Same Sco ...
