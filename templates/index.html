@@ -11,6 +11,12 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        .tag-button {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .tag-button:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -18,16 +24,18 @@
         <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-3xl font-bold text-gray-800">LeetCode Recommender</h1>
-                <button @click="getRandomQuestion" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                <button @click="getRecommendation" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
                     Get Recommendation
                 </button>
             </div>
             
-            <div v-if="randomQuestion" class="mb-6 bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-r-lg">
-                <h3 class="text-lg font-semibold text-yellow-800 mb-2">Recommended Question:</h3>
-                <a :href="randomQuestion.url" target="_blank" class="text-blue-600 hover:underline text-lg">
-                    [[ randomQuestion.name ]] (#[[ randomQuestion.id ]])
+            <div v-if="recommendedQuestion" class="mt-4 bg-blue-100 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <h3 class="text-lg font-semibold text-blue-800 mb-2">Recommended Question:</h3>
+                <a :href="recommendedQuestion.url" target="_blank" class="text-blue-600 hover:underline text-lg">
+                    [[ recommendedQuestion.name ]] (#[[ recommendedQuestion.id ]])
                 </a>
+                <p class="text-sm text-gray-600">Difficulty: [[ recommendedQuestion.difficulty ]]</p>
+                <p class="text-sm text-gray-600">Tags: [[ recommendedQuestion.tags.join(', ') ]]</p>
             </div>
             
             <div class="mb-6 flex flex-wrap">
@@ -43,16 +51,35 @@
         
         <div v-if="questions.length > 0" class="bg-white shadow-lg rounded-lg p-6 mb-8">
             <h2 class="text-2xl font-semibold mb-4 text-gray-800">Questions for [[ selectedCompany ]]</h2>
-            <ul class="space-y-2">
-                <li v-for="question in questions" :key="question.id" class="flex items-center p-2 hover:bg-gray-50 rounded">
-                    <input type="checkbox" 
-                           :id="question.id" 
-                           v-model="question.completed" 
-                           @change="updateProgress(question)"
-                           class="mr-3 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                    <a :href="question.url" target="_blank" class="text-gray-700 hover:text-blue-600 hover:underline">
-                        [[ question.name ]] (#[[ question.id ]])
-                    </a>
+            <ul class="space-y-4">
+                <li v-for="question in questions" :key="question.id" class="flex flex-col p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-300 ease-in-out">
+                    <div class="flex justify-between items-center">
+                        <a :href="question.url" target="_blank" class="text-gray-800 hover:text-blue-600 hover:underline font-semibold text-lg">
+                            [[ question.name ]] (#[[ question.id ]])
+                        </a>
+                        <input type="checkbox" 
+                               :id="question.id" 
+                               v-model="question.completed" 
+                               @change="updateProgress(question)"
+                               class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    </div>
+                    <div class="mt-2 flex space-x-2">
+                        <span class="inline-block px-3 py-1 rounded-full text-sm font-medium" 
+                              :class="{
+                                  'bg-green-100 text-green-800': question.difficulty === 'Easy',
+                                  'bg-yellow-100 text-yellow-800': question.difficulty === 'Medium',
+                                  'bg-red-100 text-red-800': question.difficulty === 'Hard'
+                              }">
+                            [[ question.difficulty ]]
+                        </span>
+                        <button v-for="tag in question.tags" 
+                                :key="tag" 
+                                @click="toggleTagFilter(tag)"
+                                :class="['tag-button inline-block px-3 py-1 rounded-full text-sm font-medium', 
+                                         selectedTags.includes(tag) ? 'bg-blue-100 text-blue-800' : 'bg-gray-200 text-gray-700']">
+                            [[ tag ]]
+                        </button>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -84,10 +111,11 @@
                 const companies = ref([])
                 const selectedCompany = ref('')
                 const questions = ref([])
-                const randomQuestion = ref(null)
+                const recommendedQuestion = ref(null)
                 const allCompleted = ref(false)
                 const currentPage = ref(1)
                 const totalPages = ref(1)
+                const selectedTags = ref([])
 
                 const selectCompany = async (company) => {
                     selectedCompany.value = company
@@ -96,7 +124,11 @@
                 }
 
                 const fetchQuestions = async () => {
-                    const response = await fetch(`/questions/${selectedCompany.value}?page=${currentPage.value}`)
+                    let url = `/questions/${selectedCompany.value}?page=${currentPage.value}`
+                    if (selectedTags.value.length > 0) {
+                        url += `&tag=${selectedTags.value.join(',')}`
+                    }
+                    const response = await fetch(url)
                     const data = await response.json()
                     questions.value = data.questions
                     totalPages.value = data.total_pages
@@ -124,22 +156,26 @@
                     checkAllCompleted()
                 }
 
-                const getRandomQuestion = async () => {
-                    const response = await fetch(`/random_question/${selectedCompany.value}`)
-                    const data = await response.json()
-                    if (data.message) {
-                        allCompleted.value = true
-                        randomQuestion.value = null
+                const toggleTagFilter = async (tag) => {
+                    if (selectedTags.value.includes(tag)) {
+                        selectedTags.value = selectedTags.value.filter(t => t !== tag)
                     } else {
-                        randomQuestion.value = data
+                        selectedTags.value.push(tag)
                     }
+                    await fetchQuestions()
+                }
+
+                const getRecommendation = async () => {
+                    const response = await fetch(`/recommend_question?company=${selectedCompany.value}`)
+                    const data = await response.json()
+                    recommendedQuestion.value = data.message ? null : data
                 }
 
                 const resetProgress = async () => {
                     await fetch('/reset_progress', { method: 'POST' })
                     selectCompany(selectedCompany.value)
                     allCompleted.value = false
-                    randomQuestion.value = null
+                    recommendedQuestion.value = null
                 }
 
                 const checkAllCompleted = () => {
@@ -161,14 +197,16 @@
                     companies,
                     selectedCompany,
                     questions,
-                    randomQuestion,
+                    recommendedQuestion,
                     allCompleted,
                     currentPage,
                     totalPages,
+                    selectedTags,
                     selectCompany,
                     changePage,
                     updateProgress,
-                    getRandomQuestion,
+                    toggleTagFilter,
+                    getRecommendation,
                     resetProgress
                 }
             }
