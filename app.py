@@ -25,7 +25,6 @@ def load_questions():
                         'completed': False
                     })
     
-    # Create a "General" category with all unique questions
     all_questions = set()
     for company_questions in questions.values():
         all_questions.update((q['id'], q['name']) for q in company_questions)
