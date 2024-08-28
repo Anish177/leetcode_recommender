@@ -60,11 +60,15 @@ def index():
 @app.route('/questions/<company>')
 def get_questions(company):
     page = request.args.get('page', 1, type=int)
-    tag_filter = request.args.get('tag', None)
+    tags = request.args.get('tag', '').split(',')
+    search_query = request.args.get('search', '').lower()
     company_questions = questions.get(company, [])
     
-    if tag_filter:
-        company_questions = [q for q in company_questions if tag_filter in q['tags']]
+    if tags and tags[0]:  # Check if tags is not an empty list
+        company_questions = [q for q in company_questions if all(tag in q['tags'] for tag in tags)]
+    
+    if search_query:
+        company_questions = [q for q in company_questions if search_query in q['name'].lower() or search_query in q['id'].lower()]
     
     total_pages = (len(company_questions) - 1) // QUESTIONS_PER_PAGE + 1
     start = (page - 1) * QUESTIONS_PER_PAGE

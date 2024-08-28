@@ -31,7 +31,7 @@
 31,1552,Magnetic Force Between Two Balls,Medium,"Array,Binary Search,Sorting"
 32,1659,Maximize Grid Happiness,Hard,"Dynamic Programming,Bit Manipulation,Memoization,Bitmask"
 33,1701,Average Waiting Time,Medium,"Array,Simulation"
-34,2035,Partition Array Into Two Arrays to Minimize Sum ....,Hard,"Array,Two Pointers,Binary Search,Dynamic Programming,Bit Manipulation,Ordered Set,Bitmask"
+34,2035,Partition Array Into Two Arrays to Minimize Sum Difference,Hard,"Array,Two Pointers,Binary Search,Dynamic Programming,Bit Manipulation,Ordered Set,Bitmask"
 35,2068,Check Whether Two Strings are Almost Equivalent,Easy,"Hash Table,String,Counting"
 36,2563,Count the Number of Fair Pairs,Medium,"Array,Two Pointers,Binary Search,Sorting"
 37,2866,Beautiful Towers II,Medium,"Array,Stack,Monotonic Stack"

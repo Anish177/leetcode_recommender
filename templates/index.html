@@ -10,6 +10,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
         }
         .tag-button {
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -19,23 +20,37 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body>
     <div id="app" class="container mx-auto p-4 max-w-4xl">
         <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-3xl font-bold text-gray-800">LeetCode Recommender</h1>
-                <button @click="getRecommendation" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                <button @click="getRecommendation" class="bg-[#3c4859] hover:bg-[#2c3849] text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
                     Get Recommendation
                 </button>
             </div>
             
-            <div v-if="recommendedQuestion" class="mt-4 bg-blue-100 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                <h3 class="text-lg font-semibold text-blue-800 mb-2">Recommended Question:</h3>
-                <a :href="recommendedQuestion.url" target="_blank" class="text-blue-600 hover:underline text-lg">
-                    [[ recommendedQuestion.name ]] (#[[ recommendedQuestion.id ]])
-                </a>
+            <div v-if="recommendedQuestion && !allCompleted" class="mt-4 bg-[#e7f3ff] border-l-4 border-[#3c4859] p-4 rounded-r-lg">
+                <h3 class="text-lg font-semibold text-[#3c4859] mb-2">Recommended Question:</h3>
+                <div class="flex items-center justify-between">
+                    <a :href="recommendedQuestion.url" target="_blank" class="text-[#3c4859] hover:underline text-lg">
+                        [[ recommendedQuestion.name ]] (#[[ recommendedQuestion.id ]])
+                    </a>
+                    <input type="checkbox" 
+                           :id="'rec-' + recommendedQuestion.id" 
+                           v-model="recommendedQuestion.completed" 
+                           @change="updateProgress(recommendedQuestion)"
+                           class="h-5 w-5 text-[#3c4859] focus:ring-[#3c4859] border-gray-300 rounded">
+                </div>
                 <p class="text-sm text-gray-600">Difficulty: [[ recommendedQuestion.difficulty ]]</p>
                 <p class="text-sm text-gray-600">Tags: [[ recommendedQuestion.tags.join(', ') ]]</p>
+            </div>
+
+            <div v-if="allCompleted" class="mt-4 bg-green-100 border-l-4 border-green-500 p-4 rounded-r-lg">
+                <p class="text-xl font-bold text-green-800 mb-2">Good job!</p>
+                <button @click="resetProgress" class="bg-[#ffa116] hover:bg-[#ff9006] text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Practice again?
+                </button>
             </div>
             
             <div class="mb-6 flex flex-wrap">
@@ -43,10 +58,21 @@
                         :key="company" 
                         @click="selectCompany(company)"
                         :class="['px-4 py-2 mr-2 mb-2 rounded-lg font-semibold transition duration-300 ease-in-out', 
-                                 selectedCompany === company ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300']">
+                                 selectedCompany === company ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300']">
                     [[ company ]]
                 </button>
             </div>
+
+            <form @submit.prevent="searchQuestions" class="mb-4">
+                <div class="flex">
+                    <input type="text" v-model="searchQuery" placeholder="Search questions..." 
+                           class="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#3c4859]">
+                    <button type="submit" 
+                            class="bg-[#3c4859] hover:bg-[#2c3849] text-white font-semibold px-4 py-2 rounded-r-lg transition duration-300 ease-in-out">
+                        Search
+                    </button>
+                </div>
+            </form>
         </div>
         
         <div v-if="questions.length > 0" class="bg-white shadow-lg rounded-lg p-6 mb-8">
@@ -54,16 +80,16 @@
             <ul class="space-y-4">
                 <li v-for="question in questions" :key="question.id" class="flex flex-col p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-300 ease-in-out">
                     <div class="flex justify-between items-center">
-                        <a :href="question.url" target="_blank" class="text-gray-800 hover:text-blue-600 hover:underline font-semibold text-lg">
+                        <a :href="question.url" target="_blank" class="text-gray-800 hover:text-[#3c4859] hover:underline font-semibold text-lg">
                             [[ question.name ]] (#[[ question.id ]])
                         </a>
                         <input type="checkbox" 
                                :id="question.id" 
                                v-model="question.completed" 
                                @change="updateProgress(question)"
-                               class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                               class="h-5 w-5 text-[#3c4859] focus:ring-[#3c4859] border-gray-300 rounded">
                     </div>
-                    <div class="mt-2 flex space-x-2">
+                    <div class="mt-2 flex flex-wrap gap-2">
                         <span class="inline-block px-3 py-1 rounded-full text-sm font-medium" 
                               :class="{
                                   'bg-green-100 text-green-800': question.difficulty === 'Easy',
@@ -76,7 +102,7 @@
                                 :key="tag" 
                                 @click="toggleTagFilter(tag)"
                                 :class="['tag-button inline-block px-3 py-1 rounded-full text-sm font-medium', 
-                                         selectedTags.includes(tag) ? 'bg-blue-100 text-blue-800' : 'bg-gray-200 text-gray-700']">
+                                         selectedTags.includes(tag) ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700']">
                             [[ tag ]]
                         </button>
                     </div>
@@ -89,21 +115,19 @@
                     :key="page" 
                     @click="changePage(page)"
                     :class="['px-3 py-1 rounded-md font-semibold transition duration-300 ease-in-out', 
-                             currentPage === page ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300']">
+                             currentPage === page ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300']">
                 [[ page ]]
             </button>
         </div>
-        
-        <div v-if="allCompleted" class="bg-green-100 border-l-4 border-green-500 p-4 rounded-r-lg mb-8">
-            <p class="text-xl font-bold text-green-800 mb-2">Good job!</p>
-            <button @click="resetProgress" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                Practice again?
-            </button>
-        </div>
+
+        <footer class="text-center py-4 bg-white shadow-lg rounded-lg">
+            <p class="text-gray-700">Made by 🐼</p>
+            <p class="text-gray-600">Find me on <a href="https://www.linkedin.com/" target="_blank" class="text-[#3c4859] hover:underline">LinkedIn</a></p>
+        </footer>
     </div>
 
     <script>
-        const { createApp, ref, onMounted, computed } = Vue
+        const { createApp, ref, onMounted, computed, watch } = Vue
 
         createApp({
             delimiters: ['[[', ']]'],
@@ -116,10 +140,13 @@
                 const currentPage = ref(1)
                 const totalPages = ref(1)
                 const selectedTags = ref([])
+                const searchQuery = ref('')
 
                 const selectCompany = async (company) => {
                     selectedCompany.value = company
                     currentPage.value = 1
+                    selectedTags.value = []
+                    searchQuery.value = ''
                     await fetchQuestions()
                 }
 
@@ -127,6 +154,9 @@
                     let url = `/questions/${selectedCompany.value}?page=${currentPage.value}`
                     if (selectedTags.value.length > 0) {
                         url += `&tag=${selectedTags.value.join(',')}`
+                    }
+                    if (searchQuery.value) {
+                        url += `&search=${encodeURIComponent(searchQuery.value)}`
                     }
                     const response = await fetch(url)
                     const data = await response.json()
@@ -153,15 +183,25 @@
                             completed: question.completed
                         }),
                     })
+                    if (recommendedQuestion.value && recommendedQuestion.value.id === question.id) {
+                        recommendedQuestion.value.completed = question.completed
+                    }
+                    // Update the question in the list
+                    const index = questions.value.findIndex(q => q.id === question.id)
+                    if (index !== -1) {
+                        questions.value[index].completed = question.completed
+                    }
                     checkAllCompleted()
                 }
 
                 const toggleTagFilter = async (tag) => {
-                    if (selectedTags.value.includes(tag)) {
-                        selectedTags.value = selectedTags.value.filter(t => t !== tag)
+                    const index = selectedTags.value.indexOf(tag)
+                    if (index > -1) {
+                        selectedTags.value.splice(index, 1)
                     } else {
                         selectedTags.value.push(tag)
                     }
+                    currentPage.value = 1
                     await fetchQuestions()
                 }
 
@@ -173,13 +213,19 @@
 
                 const resetProgress = async () => {
                     await fetch('/reset_progress', { method: 'POST' })
-                    selectCompany(selectedCompany.value)
+                    await selectCompany(selectedCompany.value)
                     allCompleted.value = false
                     recommendedQuestion.value = null
                 }
 
                 const checkAllCompleted = () => {
-                    allCompleted.value = questions.value.every(q => q.completed)
+                    allCompleted.value = questions.value.length > 0 && questions.value.every(q => q.completed)
+                }
+
+                const searchQuestions = async () => {
+                    currentPage.value = 1
+                    selectedTags.value = []
+                    await fetchQuestions()
                 }
 
                 onMounted(async () => {
@@ -202,12 +248,14 @@
                     currentPage,
                     totalPages,
                     selectedTags,
+                    searchQuery,
                     selectCompany,
                     changePage,
                     updateProgress,
                     toggleTagFilter,
                     getRecommendation,
-                    resetProgress
+                    resetProgress,
+                    searchQuestions
                 }
             }
         }).mount('#app')
