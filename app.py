@@ -16,17 +16,17 @@ user_stats = {
 
 
 def load_questions():
-    questions = {}
-    companies = []
+    loading_questions = {}
+    loading_companies = []
     for filename in os.listdir("data"):
         if filename.endswith(".csv"):
             company = filename[:-4]
-            companies.append(company)
-            questions[company] = []
+            loading_companies.append(company)
+            loading_questions[company] = []
             with open(os.path.join("data", filename), "r", encoding="utf-8") as file:
                 reader = csv.reader(file)
                 for row in reader:
-                    questions[company].append(
+                    loading_questions[company].append(
                         {
                             "id": row[1],
                             "name": row[2],
@@ -40,13 +40,13 @@ def load_questions():
                     )
 
     all_questions = set()
-    for company_questions in questions.values():
+    for company_questions in loading_questions.values():
         all_questions.update(
             (q["id"], q["name"], q["difficulty"], ",".join(q["tags"]))
             for q in company_questions
         )
 
-    questions["All"] = [
+    loading_questions["All"] = [
         {
             "id": q[0],
             "name": q[1],
@@ -58,7 +58,7 @@ def load_questions():
         for q in all_questions
     ]
 
-    return questions, ["All"] + sorted(companies)
+    return loading_questions, ["All"] + sorted(loading_companies)
 
 
 questions, companies = load_questions()
@@ -73,12 +73,18 @@ def index():
 def get_questions(company):
     page = request.args.get("page", 1, type=int)
     tags = request.args.get("tag", "").split(",")
+    difficulties = request.args.get("difficulty", "").split(",")
     search_query = request.args.get("search", "").lower()
     company_questions = questions.get(company, [])
 
     if tags and tags[0]:
         company_questions = [
             q for q in company_questions if all(tag in q["tags"] for tag in tags)
+        ]
+
+    if difficulties and difficulties[0]:
+        company_questions = [
+            q for q in company_questions if q["difficulty"] in difficulties
         ]
 
     if search_query:
