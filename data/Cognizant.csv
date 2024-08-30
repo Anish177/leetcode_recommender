@@ -1,0 +1,18 @@
+1,7,Reverse Integer,Medium,Math
+2,2165,Smallest Value of the Rearranged Number,Medium,"Math,Sorting"
+3,9,Palindrome Number,Easy,Math
+4,14,Longest Common Prefix,Easy,"String,Trie"
+5,20,Valid Parentheses,Easy,"String,Stack"
+6,1,Two Sum,Easy,"Array,Hash Table"
+7,570,Managers with at Least 5 Direct Reports,Medium,Database
+8,704,Binary Search,Easy,"Array,Binary Search"
+9,509,Fibonacci Number,Easy,"Math,Dynamic Programming,Recursion,Memoization"
+10,13,Roman to Integer,Easy,"Hash Table,Math,String"
+11,21,Merge Two Sorted Lists,Easy,"Linked List,Recursion"
+12,26,Remove Duplicates from Sorted Array,Easy,"Array,Two Pointers"
+13,176,Second Highest Salary,Medium,Database
+14,180,Consecutive Numbers,Medium,Database
+15,204,Count Primes,Medium,"Array,Math,Enumeration,Number Theory"
+16,283,Move Zeroes,Easy,"Array,Two Pointers"
+17,412,Fizz Buzz,Easy,"Math,String,Simulation"
+18,2620,Counter,Easy,JS / TS

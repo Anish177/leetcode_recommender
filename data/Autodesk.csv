@@ -1,0 +1,10 @@
+1,3019,Number of Changing Keys,Easy,String
+2,49,Group Anagrams,Medium,"Array,Hash Table,String,Sorting"
+3,238,Product of Array Except Self,Medium,"Array,Prefix Sum"
+4,3034,Number of Subarrays That Match a Pattern I,Medium,"Array,Rolling Hash,String Matching,Hash Function"
+5,3036,Number of Subarrays That Match a Pattern II,Hard,"Array,Rolling Hash,String Matching,Hash Function"
+6,3045,Count Prefix and Suffix Pairs II,Hard,"Array,String,Trie,Rolling Hash,String Matching,Hash Function"
+7,3042,Count Prefix and Suffix Pairs I,Easy,"Array,String,Trie,Rolling Hash,String Matching,Hash Function"
+8,3069,Distribute Elements Into Two Arrays I,Easy,"Array,Simulation"
+9,3072,Distribute Elements Into Two Arrays II,Hard,"Array,Binary Indexed Tree,Segment Tree,Simulation"
+10,3161,Block Placement Queries,Hard,"Array,Binary Search,Binary Indexed Tree,Segment Tree"

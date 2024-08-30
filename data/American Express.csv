@@ -1,0 +1,12 @@
+1,2997,Minimum Number of Operations to Make Array XOR Equal to K,Medium,"Array,Bit Manipulation"
+2,1647,Minimum Deletions to Make Character Frequencies Unique,Medium,"Hash Table,String,Greedy,Sorting"
+3,42,Trapping Rain Water,Hard,"Array,Two Pointers,Dynamic Programming,Stack,Monotonic Stack"
+4,1201,Ugly Number III,Medium,"Math,Binary Search,Combinatorics,Number Theory"
+5,1224,Maximum Equal Frequency,Hard,"Array,Hash Table"
+6,2202,Maximize the Topmost Element After K Moves,Medium,"Array,Greedy"
+7,1521,Find a Value of a Mysterious Function Closest to Target,Hard,"Array,Binary Search,Bit Manipulation,Segment Tree"
+8,1775,Equal Sum Arrays With Minimum Number of Operations,Medium,"Array,Hash Table,Greedy,Counting"
+9,2278,Percentage of Letter in String,Easy,String
+10,2317,Maximum XOR After Operations,Medium,"Array,Math,Bit Manipulation"
+11,3013,Divide an Array Into Subarrays With Minimum Cost II,Hard,"Array,Hash Table,Sliding Window,Heap (Priority Queue)"
+12,3010,Divide an Array Into Subarrays With Minimum Cost I,Easy,"Array,Sorting,Enumeration"

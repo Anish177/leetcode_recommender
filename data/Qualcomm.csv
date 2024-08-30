@@ -1,0 +1,17 @@
+1,24,Swap Nodes in Pairs,Medium,"Linked List,Recursion"
+2,876,Middle of the Linked List,Easy,"Linked List,Two Pointers"
+3,1183,Maximum Number of Ones,Hard,"Greedy,Heap (Priority Queue)"
+4,3163,String Compression III,Medium,String
+5,20,Valid Parentheses,Easy,"String,Stack"
+6,53,Maximum Subarray,Medium,"Array,Divide and Conquer,Dynamic Programming"
+7,141,Linked List Cycle,Easy,"Hash Table,Linked List,Two Pointers"
+8,146,LRU Cache,Medium,"Hash Table,Linked List,Design,Doubly-Linked List"
+9,206,Reverse Linked List,Easy,"Linked List,Recursion"
+10,9,Palindrome Number,Easy,Math
+11,25,Reverse Nodes in k-Group,Hard,"Linked List,Recursion"
+12,70,Climbing Stairs,Easy,"Math,Dynamic Programming,Memoization"
+13,151,Reverse Words in a String,Medium,"Two Pointers,String"
+14,155,Min Stack,Medium,"Stack,Design"
+15,190,Reverse Bits,Easy,"Divide and Conquer,Bit Manipulation"
+16,223,Rectangle Area,Medium,"Math,Geometry"
+17,1275,Find Winner on a Tic Tac Toe Game,Easy,"Array,Hash Table,Matrix,Simulation"
