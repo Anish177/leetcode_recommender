@@ -167,16 +167,17 @@ def recommend_question():
     company = request.args.get("company", "All")
     possible_questions = [q for q in questions[company] if not q["completed"]]
 
-    possible_questions.sort(
-        key=lambda q: (
-            user_stats["solved_tags"][q["tags"][0]] if q["tags"] else 0,
-            user_stats["solved_difficulties"][q["difficulty"]],
-        )
-    )
+    if not possible_questions:
+        return jsonify({"message": "All questions completed"})
 
-    if possible_questions:
-        return jsonify(possible_questions[0])
-    return jsonify({"message": "All questions completed"})
+    def recommendation_score(question):
+        tag_score = sum(user_stats["solved_tags"].get(tag, 0) for tag in question["tags"])
+        difficulty_score = user_stats["solved_difficulties"].get(question["difficulty"], 0)
+        return tag_score + difficulty_score + random.uniform(0, 1)
+    
+    possible_questions.sort(key=recommendation_score)
+
+    return jsonify(possible_questions[0])
 
 
 if __name__ == "__main__":
