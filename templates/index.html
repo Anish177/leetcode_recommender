@@ -25,7 +25,7 @@
       }
       .tag-button,
       .difficulty-button {
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition: all 0.3s ease;
       }
       .tag-button:hover,
       .difficulty-button:hover {
@@ -40,29 +40,100 @@
       }
       @media (max-width: 640px) {
         .container {
-          padding-left: 0.5rem;
-          padding-right: 0.5rem;
+          padding-left: 1rem;
+          padding-right: 1rem;
         }
         .question-item {
-          padding: 0.75rem;
+          padding: 1rem;
         }
         .tag-container {
-          margin-top: 0.5rem;
+          margin-top: 0.75rem;
         }
         .question-title {
-          font-size: 1rem;
+          font-size: 1.1rem;
         }
+      }
+      /* Company-specific styles */
+      .company-button-Google {
+        color: #4285f4;
+      }
+      .company-button-Meta {
+        color: #1877f2;
+      }
+      .company-button-Apple {
+        color: #555555;
+      }
+      .company-button-Amazon {
+        color: #ff9900;
+      }
+      .company-button-Microsoft {
+        color: #00a4ef;
+      }
+      .company-button-Netflix {
+        color: #e50914;
+      }
+      .company-button-Uber {
+        color: #000000;
+      }
+      .company-button-Airbnb {
+        color: #ff5a5f;
+      }
+      .company-button-Twitter {
+        color: #1da1f2;
+      }
+      .company-button-LinkedIn {
+        color: #0077b5;
+      }
+      .company-button-Dropbox {
+        color: #0061ff;
+      }
+      .company-button-Adobe {
+        color: #ff0000;
+      }
+      .company-button-Salesforce {
+        color: #00a1e0;
+      }
+      .company-button-Oracle {
+        color: #f80000;
+      }
+      .company-button-IBM {
+        color: #006699;
+      }
+
+      .company-button {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+      .company-button:hover {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+      .company-button.selected {
+        transform: scale(1.1);
+        filter: brightness(1.3);
+        border-color: currentColor;
+      }
+      .company-button.selected:hover {
+        transform: scale(1.15);
       }
     </style>
   </head>
-  <body>
-    <div id="app" class="container mx-auto p-4 max-w-4xl">
+  <body class="bg-gray-100">
+    <div
+      id="app"
+      class="container mx-auto p-4 max-w-4xl"
+      :class="'theme-' + selectedCompany"
+    >
       <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
-        <div class="flex justify-between items-center mb-6">
-          <h1 class="text-3xl font-bold text-gray-800">LeetCode Recommender</h1>
+        <div
+          class="flex flex-col sm:flex-row justify-between items-center mb-6"
+        >
+          <h1 class="text-3xl font-bold mb-4 sm:mb-0 text-gray-800">
+            LeetCode Recommender
+          </h1>
           <button
             @click="getRecommendation"
-            class="bg-[#3c4859] hover:bg-[#2c3849] text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+            class="bg-[#3c4859] hover:bg-[#2c3849] text-white font-semibold px-6 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 w-full sm:w-auto"
           >
             Get Recommendation
           </button>
@@ -70,7 +141,7 @@
 
         <div
           v-if="recommendedQuestion && !allCompleted"
-          class="mt-4 bg-[#e7f3ff] border-l-4 border-[#3c4859] p-4 rounded-r-lg"
+          class="mt-4 bg-[#e7f3ff] border-l-4 border-[#3c4859] p-4 rounded-lg shadow-md"
         >
           <h3 class="text-lg font-semibold text-[#3c4859] mb-2">
             Recommended Question:
@@ -88,10 +159,10 @@
               :id="'rec-' + recommendedQuestion.id"
               v-model="recommendedQuestion.completed"
               @change="updateProgress(recommendedQuestion)"
-              class="h-5 w-5 text-[#3c4859] focus:ring-[#3c4859] border-gray-300 rounded"
+              class="h-6 w-6 text-[#3c4859] focus:ring-[#3c4859] border-gray-300 rounded"
             />
           </div>
-          <p class="text-sm text-gray-600">
+          <p class="text-sm text-gray-600 mt-2">
             Difficulty: [[ recommendedQuestion.difficulty ]]
           </p>
           <p class="text-sm text-gray-600">
@@ -101,40 +172,41 @@
 
         <div
           v-if="allCompleted"
-          class="mt-4 bg-green-100 border-l-4 border-green-500 p-4 rounded-r-lg"
+          class="mt-4 bg-green-100 border-l-4 border-green-500 p-4 rounded-lg shadow-md"
         >
           <p class="text-xl font-bold text-green-800 mb-2">Good job!</p>
           <button
             @click="resetProgress"
-            class="bg-[#ffa116] hover:bg-[#ff9006] text-white font-semibold px-4 py-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+            class="bg-[#ffa116] hover:bg-[#ff9006] text-white font-semibold px-6 py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 w-full sm:w-auto"
           >
             Practice again?
           </button>
         </div>
 
-        <div class="mb-6 flex flex-wrap">
+        <div class="my-6 flex flex-wrap justify-center sm:justify-start">
           <button
             v-for="company in companies"
             :key="company"
-            @click="selectCompany(company)"
-            :class="['px-4 py-2 mr-2 mb-2 rounded-lg font-semibold transition duration-300 ease-in-out', 
-                                 selectedCompany === company ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300']"
+            @click="toggleCompany(company)"
+            :class="['company-button px-4 py-2 m-1 rounded-lg font-semibold transition duration-300 ease-in-out', 
+                     'company-button-' + company,
+                     selectedCompany === company ? 'selected' : '']"
           >
             [[ company ]]
           </button>
         </div>
 
         <form @submit.prevent="searchQuestions" class="mb-4">
-          <div class="flex">
+          <div class="flex flex-col sm:flex-row">
             <input
               type="text"
               v-model="searchQuery"
               placeholder="Search questions..."
-              class="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#3c4859]"
+              class="flex-grow px-4 py-3 border border-gray-300 rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-[#3c4859] mb-2 sm:mb-0"
             />
             <button
               type="submit"
-              class="bg-[#3c4859] hover:bg-[#2c3849] text-white font-semibold px-4 py-2 rounded-r-lg transition duration-300 ease-in-out"
+              class="bg-[#3c4859] hover:bg-[#2c3849] text-white font-semibold px-6 py-3 rounded-lg sm:rounded-l-none transition duration-300 ease-in-out w-full sm:w-auto"
             >
               Search
             </button>
@@ -145,6 +217,7 @@
       <div
         v-if="questions.length > 0"
         class="bg-white shadow-lg rounded-lg p-6 mb-8"
+        :style="{ backgroundColor: 'var(--theme-background)' }"
       >
         <h2 class="text-2xl font-semibold mb-4 text-gray-800">
           Questions for [[ selectedCompany ]]
@@ -153,13 +226,13 @@
           <li
             v-for="question in questions"
             :key="question.id"
-            class="question-item flex flex-col p-4 rounded-lg transition duration-300 ease-in-out"
+            class="question-item flex flex-col p-4 rounded-lg transition duration-300 ease-in-out shadow-md"
             :class="{
-                'bg-green-50': question.completed && question.difficulty === 'Easy',
-                'bg-yellow-50': question.completed && question.difficulty === 'Medium',
-                'bg-red-50': question.completed && question.difficulty === 'Hard',
-                'bg-gray-50 hover:bg-gray-100': !question.completed
-            }"
+                    'bg-green-50': question.completed && question.difficulty === 'Easy',
+                    'bg-yellow-50': question.completed && question.difficulty === 'Medium',
+                    'bg-red-50': question.completed && question.difficulty === 'Hard',
+                    'bg-white hover:bg-gray-50': !question.completed
+                }"
           >
             <div class="flex flex-wrap justify-between items-center">
               <a
@@ -174,19 +247,20 @@
                 :id="question.id"
                 v-model="question.completed"
                 @change="updateProgress(question)"
-                class="h-5 w-5 text-[#3c4859] focus:ring-[#3c4859] border-gray-300 rounded ml-2"
+                class="h-6 w-6 text-[#3c4859] focus:ring-[#3c4859] border-gray-300 rounded ml-2"
               />
             </div>
-            <div class="tag-container mt-2 flex flex-wrap gap-2">
+            <div class="tag-container mt-3 flex flex-wrap gap-2">
               <button
                 @click="toggleDifficultyFilter(question.difficulty)"
                 class="difficulty-button inline-block px-3 py-1 rounded-full text-sm font-medium"
                 :class="{
-                        'bg-green-100 text-green-800': question.difficulty === 'Easy',
-                        'bg-yellow-100 text-yellow-800': question.difficulty === 'Medium',
-                        'bg-red-100 text-red-800': question.difficulty === 'Hard',
-                        'ring-2 ring-offset-2': selectedDifficulties.includes(question.difficulty)
-                    }"
+                            'bg-green-100 text-green-800': question.difficulty === 'Easy',
+                            'bg-yellow-100 text-yellow-800': question.difficulty === 'Medium',
+                            'bg-red-100 text-red-800': question.difficulty === 'Hard',
+                            'ring-2 ring-offset-2': selectedDifficulties.includes(question.difficulty)
+                        }"
+                :style="{ borderColor: 'var(--theme-accent)' }"
               >
                 [[ question.difficulty ]]
               </button>
@@ -194,8 +268,7 @@
                 v-for="tag in question.tags"
                 :key="tag"
                 @click="toggleTagFilter(tag)"
-                :class="['tag-button inline-block px-3 py-1 rounded-full text-sm font-medium', 
-                                         selectedTags.includes(tag) ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700']"
+                :class="['tag-button inline-block px-3 py-1 rounded-full text-sm font-medium', selectedTags.includes(tag) ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700']"
               >
                 [[ tag ]]
               </button>
@@ -211,7 +284,7 @@
         <button
           @click="changePage(currentPage - 1)"
           :disabled="currentPage === 1"
-          class="px-3 py-1 rounded-md font-semibold transition duration-300 ease-in-out"
+          class="px-4 py-2 rounded-md font-semibold transition duration-300 ease-in-out"
           :class="currentPage === 1 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
         >
           <i class="fas fa-chevron-left"></i>
@@ -220,23 +293,22 @@
           v-for="page in displayedPages"
           :key="page"
           @click="page !== '...' && changePage(page)"
-          :class="['px-3 py-1 rounded-md font-semibold transition duration-300 ease-in-out', 
-                         page === '...' ? 'cursor-default' : (currentPage === page ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300')]"
+          :class="['px-4 py-2 rounded-md font-semibold transition duration-300 ease-in-out', page === '...' ? 'cursor-default' : (currentPage === page ? 'bg-[#3c4859] text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300')]"
         >
           [[ page ]]
         </button>
         <button
           @click="changePage(currentPage + 1)"
           :disabled="currentPage === totalPages"
-          class="px-3 py-1 rounded-md font-semibold transition duration-300 ease-in-out"
+          class="px-4 py-2 rounded-md font-semibold transition duration-300 ease-in-out"
           :class="currentPage === totalPages ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
         >
           <i class="fas fa-chevron-right"></i>
         </button>
       </div>
 
-      <footer class="text-center py-4 bg-white shadow-lg rounded-lg">
-        <p class="text-gray-700">Made by 🐼</p>
+      <footer class="text-center py-6 bg-white shadow-lg rounded-lg">
+        <p class="text-gray-700 mb-2">Made by 🐼</p>
         <p class="text-gray-600">
           Like what you see? Find me on
           <a
@@ -274,6 +346,24 @@
             await fetchQuestions();
           };
 
+          const toggleCompany = async (company) => {
+            if (selectedCompany.value === company) {
+              if (company === "All") {
+                // Don't deselect "All"
+                return;
+              }
+              // Deselect the company and select "All"
+              selectedCompany.value = "All";
+            } else {
+              selectedCompany.value = company;
+            }
+            currentPage.value = 1;
+            selectedTags.value = [];
+            searchQuery.value = "";
+            selectedDifficulties.value = [];
+            await fetchQuestions();
+          };
+          
           const toggleDifficultyFilter = async (difficulty) => {
             const index = selectedDifficulties.value.indexOf(difficulty);
             if (index > -1) {
@@ -433,6 +523,7 @@
             resetProgress,
             searchQuestions,
             toggleDifficultyFilter,
+            toggleCompany,
           };
         },
       }).mount("#app");
