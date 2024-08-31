@@ -20,8 +20,8 @@ user_stats = {
 def load_questions():
     loading_questions = {}
     loading_companies = []
-    unique_names = set()  # Set to keep track of unique question names
-
+    unique_questions = {}  # Dict to track unique questions by name for "All"
+    
     for filename in os.listdir("data"):
         if filename.endswith(".csv"):
             company = filename[:-4]
@@ -33,50 +33,30 @@ def load_questions():
                 file.seek(0)
                 for ind, row in enumerate(reader):
                     question_name = row[2]
-                    if question_name in unique_names:
-                        continue  # Skip if the question name has already been added
-                    unique_names.add(question_name)  # Add question name to the set
+                    question_id = row[1]
 
-                    loading_questions[company].append(
-                        {
-                            "id": row[1],
-                            "name": question_name,
-                            "difficulty": row[3],
-                            "tags": row[4].split(",") if row[4] else [],
-                            "url": (
-                                f"https://leetcode.com/problems/{question_name.lower().replace(' ', '-')}"
-                            ),
-                            "completed": False,
-                            "recency_score": total_questions - ind,
-                        }
-                    )
+                    question_data = {
+                        "id": question_id,
+                        "name": question_name,
+                        "difficulty": row[3],
+                        "tags": row[4].split(",") if row[4] else [],
+                        "url": f"https://leetcode.com/problems/{question_name.lower().replace(' ', '-')}",
+                        "completed": False,
+                        "recency_score": total_questions - ind,
+                    }
 
-    # Combine all unique questions into 'All'
-    all_questions = set()
-    for company, company_questions in loading_questions.items():
-        all_questions.update(
-            (
-                q["name"],
-                q["difficulty"],
-                ",".join(q["tags"]),
-                q["recency_score"],
-            )
-            for q in company_questions
-        )
+                    # Add question to the company-specific list
+                    loading_questions[company].append(question_data)
 
-    loading_questions["All"] = [
-        {
-            "name": q[0],
-            "difficulty": q[1],
-            "tags": q[2].split(","),
-            "url": f"https://leetcode.com/problems/{q[0].lower().replace(' ', '-')}",
-            "completed": False,
-            "recency_score": q[3],
-        }
-        for q in all_questions
-    ]
+                    # Add to the "All" category if it's a new unique question name
+                    if question_name not in unique_questions:
+                        unique_questions[question_name] = question_data
+
+    # Create the "All" category with unique questions
+    loading_questions["All"] = list(unique_questions.values())
 
     return loading_questions, ["All"] + sorted(loading_companies)
+
 
 
 
