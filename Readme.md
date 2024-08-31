@@ -10,4 +10,5 @@ A SPA created using Flask to practice better for coding interviews.
 
 Live link: https://remarkable-madelon-leetcode-recommender-4d8663ce.koyeb.app/
 
-~ WIP ~ not pretty on small screens.
+
+Have suggestions or issues? Let me know
