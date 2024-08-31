@@ -363,7 +363,7 @@
             selectedDifficulties.value = [];
             await fetchQuestions();
           };
-          
+
           const toggleDifficultyFilter = async (difficulty) => {
             const index = selectedDifficulties.value.indexOf(difficulty);
             if (index > -1) {
@@ -431,26 +431,27 @@
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                company: selectedCompany.value,
                 questionId: question.id,
                 completed: question.completed,
               }),
             });
             if (
-              recommendedQuestion.value &&
-              recommendedQuestion.value.id === question.id
-            ) {
-              recommendedQuestion.value.completed = question.completed;
-            }
-            // Update the question in the list
-            const index = questions.value.findIndex(
+            recommendedQuestion.value &&
+            recommendedQuestion.value.id === question.id
+          ) {
+            recommendedQuestion.value.completed = question.completed;
+          }
+
+          for (const company in questions.value) {
+            const index = questions.value[company].findIndex(
               (q) => q.id === question.id
             );
             if (index !== -1) {
-              questions.value[index].completed = question.completed;
+              questions.value[company][index].completed = question.completed;
             }
-            checkAllCompleted();
-          };
+          }
+          checkAllCompleted();
+        };
 
           const toggleTagFilter = async (tag) => {
             const index = selectedTags.value.indexOf(tag);

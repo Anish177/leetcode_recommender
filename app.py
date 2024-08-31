@@ -3,6 +3,7 @@ import csv
 import random
 from collections import defaultdict
 from flask import Flask, render_template, jsonify, request
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -12,6 +13,7 @@ user_stats = {
     "solved_tags": defaultdict(int),
     "solved_difficulties": defaultdict(int),
     "solved_questions": set(),
+    "last_solved_time": {},
 }
 
 
@@ -25,7 +27,9 @@ def load_questions():
             loading_questions[company] = []
             with open(os.path.join("data", filename), "r", encoding="utf-8") as file:
                 reader = csv.reader(file)
-                for row in reader:
+                total_questions = sum(1 for _ in reader)
+                file.seek(0)
+                for ind, row in enumerate(reader):
                     loading_questions[company].append(
                         {
                             "id": row[1],
@@ -36,13 +40,20 @@ def load_questions():
                                 f"https://leetcode.com/problems/{row[2].lower().replace(' ', '-')}"
                             ),
                             "completed": False,
+                            "recency_score": total_questions - ind,
                         }
                     )
 
     all_questions = set()
     for company_questions in loading_questions.values():
         all_questions.update(
-            (q["id"], q["name"], q["difficulty"], ",".join(q["tags"]))
+            (
+                q["id"],
+                q["name"],
+                q["difficulty"],
+                ",".join(q["tags"]),
+                q["recency_score"],
+            )
             for q in company_questions
         )
 
@@ -54,6 +65,7 @@ def load_questions():
             "tags": q[3].split(","),
             "url": f"https://leetcode.com/problems/{q[1].lower().replace(' ', '-')}",
             "completed": False,
+            "recency_score": q[4],
         }
         for q in all_questions
     ]
@@ -109,17 +121,11 @@ def get_questions(company):
 @app.route("/update_progress", methods=["POST"])
 def update_progress():
     data = request.json
-    company = data["company"]
     question_id = data["questionId"]
     completed = data["completed"]
 
-    for question in questions[company]:
-        if question["id"] == question_id:
-            question["completed"] = completed
-            break
-
-    if company != "All":
-        for question in questions["All"]:
+    for _, company_questions in questions.items():
+        for question in company_questions:
             if question["id"] == question_id:
                 question["completed"] = completed
                 break
@@ -170,14 +176,37 @@ def recommend_question():
     if not possible_questions:
         return jsonify({"message": "All questions completed"})
 
-    def recommendation_score(question):
-        tag_score = sum(user_stats["solved_tags"].get(tag, 0) for tag in question["tags"])
-        difficulty_score = user_stats["solved_difficulties"].get(question["difficulty"], 0)
-        return tag_score + difficulty_score + random.uniform(0, 1)
-    
-    possible_questions.sort(key=recommendation_score)
+    current_time = datetime.now()
 
-    return jsonify(possible_questions[0])
+    def recommendation_score(question):
+        tag_score = sum(
+            user_stats["solved_tags"].get(tag, 0) for tag in question["tags"]
+        )
+
+        difficulty_score = user_stats["solved_difficulties"].get(
+            question["difficulty"], 0
+        )
+
+        recency_score = question["recency_score"]
+
+        time_decay = 1.0
+        if question["id"] in user_stats["last_solved_time"]:
+            days_since_solved = (
+                current_time - user_stats["last_solved_time"][question["id"]]
+            ).days
+            time_decay = 1 / (1 + days_since_solved)
+
+        combined_score = (
+            0.2 * tag_score
+            + 0.2 * difficulty_score
+            + 0.1 * recency_score
+            + 0.1 * (1 - time_decay)
+        )
+
+        return combined_score + random.uniform(0, 0.1)
+
+    recommended_question = max(possible_questions, key=recommendation_score)
+    return jsonify(recommended_question)
 
 
 if __name__ == "__main__":
