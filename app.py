@@ -2,8 +2,8 @@ import os
 import csv
 import random
 from collections import defaultdict
+from datetime import datetime
 from flask import Flask, render_template, jsonify, request
-from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -20,8 +20,8 @@ user_stats = {
 def load_questions():
     loading_questions = {}
     loading_companies = []
-    unique_questions = {}  # Dict to track unique questions by name for "All"
-    
+    unique_questions = {}
+
     for filename in os.listdir("data"):
         if filename.endswith(".csv"):
             company = filename[:-4]
@@ -45,19 +45,14 @@ def load_questions():
                         "recency_score": total_questions - ind,
                     }
 
-                    # Add question to the company-specific list
                     loading_questions[company].append(question_data)
 
-                    # Add to the "All" category if it's a new unique question name
                     if question_name not in unique_questions:
                         unique_questions[question_name] = question_data
 
-    # Create the "All" category with unique questions
     loading_questions["All"] = list(unique_questions.values())
 
     return loading_questions, ["All"] + sorted(loading_companies)
-
-
 
 
 questions, companies = load_questions()
