@@ -343,16 +343,15 @@
             currentPage.value = 1;
             selectedTags.value = [];
             searchQuery.value = "";
+            selectedDifficulties.value = [];
             await fetchQuestions();
           };
 
           const toggleCompany = async (company) => {
             if (selectedCompany.value === company) {
               if (company === "All") {
-                // Don't deselect "All"
                 return;
               }
-              // Deselect the company and select "All"
               selectedCompany.value = "All";
             } else {
               selectedCompany.value = company;
@@ -436,22 +435,19 @@
               }),
             });
             if (
-            recommendedQuestion.value &&
-            recommendedQuestion.value.id === question.id
-          ) {
-            recommendedQuestion.value.completed = question.completed;
-          }
-
-          for (const company in questions.value) {
-            const index = questions.value[company].findIndex(
+              recommendedQuestion.value &&
+              recommendedQuestion.value.id === question.id
+            ) {
+              recommendedQuestion.value.completed = question.completed;
+            }
+            const index = questions.value.findIndex(
               (q) => q.id === question.id
             );
             if (index !== -1) {
-              questions.value[company][index].completed = question.completed;
+              questions.value[index].completed = question.completed;
             }
-          }
-          checkAllCompleted();
-        };
+            checkAllCompleted();
+          };
 
           const toggleTagFilter = async (tag) => {
             const index = selectedTags.value.indexOf(tag);
@@ -487,7 +483,6 @@
 
           const searchQuestions = async () => {
             currentPage.value = 1;
-            selectedTags.value = [];
             await fetchQuestions();
           };
 

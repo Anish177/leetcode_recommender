@@ -20,6 +20,8 @@ user_stats = {
 def load_questions():
     loading_questions = {}
     loading_companies = []
+    unique_names = set()  # Set to keep track of unique question names
+
     for filename in os.listdir("data"):
         if filename.endswith(".csv"):
             company = filename[:-4]
@@ -30,25 +32,30 @@ def load_questions():
                 total_questions = sum(1 for _ in reader)
                 file.seek(0)
                 for ind, row in enumerate(reader):
+                    question_name = row[2]
+                    if question_name in unique_names:
+                        continue  # Skip if the question name has already been added
+                    unique_names.add(question_name)  # Add question name to the set
+
                     loading_questions[company].append(
                         {
                             "id": row[1],
-                            "name": row[2],
+                            "name": question_name,
                             "difficulty": row[3],
-                            "tags": row[4].split(","),
+                            "tags": row[4].split(",") if row[4] else [],
                             "url": (
-                                f"https://leetcode.com/problems/{row[2].lower().replace(' ', '-')}"
+                                f"https://leetcode.com/problems/{question_name.lower().replace(' ', '-')}"
                             ),
                             "completed": False,
                             "recency_score": total_questions - ind,
                         }
                     )
 
+    # Combine all unique questions into 'All'
     all_questions = set()
-    for company_questions in loading_questions.values():
+    for company, company_questions in loading_questions.items():
         all_questions.update(
             (
-                q["id"],
                 q["name"],
                 q["difficulty"],
                 ",".join(q["tags"]),
@@ -59,18 +66,18 @@ def load_questions():
 
     loading_questions["All"] = [
         {
-            "id": q[0],
-            "name": q[1],
-            "difficulty": q[2],
-            "tags": q[3].split(","),
-            "url": f"https://leetcode.com/problems/{q[1].lower().replace(' ', '-')}",
+            "name": q[0],
+            "difficulty": q[1],
+            "tags": q[2].split(","),
+            "url": f"https://leetcode.com/problems/{q[0].lower().replace(' ', '-')}",
             "completed": False,
-            "recency_score": q[4],
+            "recency_score": q[3],
         }
         for q in all_questions
     ]
 
     return loading_questions, ["All"] + sorted(loading_companies)
+
 
 
 questions, companies = load_questions()
