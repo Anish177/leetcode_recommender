@@ -139,19 +139,26 @@ def update_progress():
     if completed:
         user_stats["solved_questions"].add(question_id)
         for tag in question["tags"]:
+            if tag not in user_stats["solved_tags"]:
+                user_stats["solved_tags"][tag] = 0
             user_stats["solved_tags"][tag] += 1
+        if question["difficulty"] not in user_stats["solved_difficulties"]:
+            user_stats["solved_difficulties"][question["difficulty"]] = 0
         user_stats["solved_difficulties"][question["difficulty"]] += 1
     else:
         user_stats["solved_questions"].discard(question_id)
         for tag in question["tags"]:
-            user_stats["solved_tags"][tag] = max(0, user_stats["solved_tags"][tag] - 1)
-        user_stats["solved_difficulties"][question["difficulty"]] = max(
-            0, user_stats["solved_difficulties"][question["difficulty"]] - 1
-        )
+            if tag in user_stats["solved_tags"]:
+                user_stats["solved_tags"][tag] = max(0, user_stats["solved_tags"][tag] - 1)
+        if question["difficulty"] in user_stats["solved_difficulties"]:
+            user_stats["solved_difficulties"][question["difficulty"]] = max(
+                0, user_stats["solved_difficulties"][question["difficulty"]] - 1
+            )
 
     session['user_stats']['solved_questions'] = list(user_stats['solved_questions'])
     session['user_stats'] = user_stats
     return jsonify({"success": True})
+
 
 
 
