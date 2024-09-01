@@ -8,7 +8,8 @@ from dotenv import dotenv_values
 
 app = Flask(__name__)
 
-app.secret_key = dotenv_values('.env')['SECRET_KEY']
+# app.secret_key = dotenv_values('.env')['SECRET_KEY']
+app.secret_key = os.environ.get('SECRET_KEY')
 
 
 QUESTIONS_PER_PAGE = 20
