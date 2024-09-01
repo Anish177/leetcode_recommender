@@ -3,9 +3,13 @@ import csv
 import random
 from collections import defaultdict
 from datetime import datetime
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
+from dotenv import dotenv_values
 
 app = Flask(__name__)
+
+app.secret_key = dotenv_values('.env')['SECRET_KEY']
+
 
 QUESTIONS_PER_PAGE = 20
 
@@ -53,6 +57,22 @@ def load_questions():
     loading_questions["All"] = list(unique_questions.values())
 
     return loading_questions, ["All"] + sorted(loading_companies)
+
+
+def get_user_stats():
+    if 'user_stats' not in session:
+        session['user_stats'] = {
+            "solved_tags": defaultdict(int),
+            "solved_difficulties": defaultdict(int),
+            "solved_questions": list(),  # Store as a list
+            "last_solved_time": {},
+        }
+    else:
+        # Convert lists back to sets for internal usage
+        session['user_stats']['solved_questions'] = set(session['user_stats']['solved_questions'])
+        
+    return session['user_stats']
+
 
 
 questions, companies = load_questions()
@@ -106,6 +126,8 @@ def update_progress():
     question_id = data["questionId"]
     completed = data["completed"]
 
+    user_stats = get_user_stats()
+
     for _, company_questions in questions.items():
         for question in company_questions:
             if question["id"] == question_id:
@@ -125,7 +147,10 @@ def update_progress():
             0, user_stats["solved_difficulties"][question["difficulty"]] - 1
         )
 
+    session['user_stats']['solved_questions'] = list(user_stats['solved_questions'])
+    session['user_stats'] = user_stats
     return jsonify({"success": True})
+
 
 
 @app.route("/random_question/<company>")
@@ -152,6 +177,7 @@ def reset_progress():
 
 @app.route("/recommend_question", methods=["GET"])
 def recommend_question():
+    user_stats = get_user_stats()
     company = request.args.get("company", "All")
     possible_questions = [q for q in questions[company] if not q["completed"]]
 
@@ -189,6 +215,7 @@ def recommend_question():
 
     recommended_question = max(possible_questions, key=recommendation_score)
     return jsonify(recommended_question)
+
 
 
 if __name__ == "__main__":
