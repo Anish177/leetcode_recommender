@@ -5,10 +5,15 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from flask import Flask, render_template, jsonify, request, make_response
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 app.secret_key = os.environ.get('SECRET_KEY')
+if not app.secret_key:
+    raise ValueError("No SECRET_KEY set for Flask application")
 
 QUESTIONS_PER_PAGE = 20
 
@@ -54,9 +59,13 @@ questions, companies = load_questions()
 def get_user_stats():
     user_stats = request.cookies.get('user_stats')
     if user_stats:
-        user_stats = json.loads(user_stats)
-        user_stats['solved_questions'] = set(user_stats['solved_questions'])
-    else:
+        try:
+            user_stats = json.loads(user_stats)
+            user_stats['solved_questions'] = set(user_stats['solved_questions'])
+        except json.JSONDecodeError:
+            user_stats = None
+    
+    if not user_stats:
         user_stats = {
             "solved_tags": defaultdict(int),
             "solved_difficulties": defaultdict(int),
@@ -66,8 +75,9 @@ def get_user_stats():
     return user_stats
 
 def set_user_stats(response, user_stats):
-    user_stats['solved_questions'] = list(user_stats['solved_questions'])
-    response.set_cookie('user_stats', json.dumps(user_stats), max_age=31536000)
+    user_stats_copy = user_stats.copy()
+    user_stats_copy['solved_questions'] = list(user_stats_copy['solved_questions'])
+    response.set_cookie('user_stats', json.dumps(user_stats_copy), max_age=31536000, httponly=True, secure=True, samesite='Lax')
 
 @app.route("/")
 def index():
@@ -123,6 +133,7 @@ def update_progress():
                 for tag in question["tags"]:
                     user_stats["solved_tags"][tag] = user_stats["solved_tags"].get(tag, 0) + 1
                 user_stats["solved_difficulties"][question["difficulty"]] = user_stats["solved_difficulties"].get(question["difficulty"], 0) + 1
+                user_stats["last_solved_time"][question_id] = datetime.now().isoformat()
                 break
     else:
         user_stats["solved_questions"].discard(question_id)
@@ -131,6 +142,7 @@ def update_progress():
                 for tag in question["tags"]:
                     user_stats["solved_tags"][tag] = max(0, user_stats["solved_tags"].get(tag, 0) - 1)
                 user_stats["solved_difficulties"][question["difficulty"]] = max(0, user_stats["solved_difficulties"].get(question["difficulty"], 0) - 1)
+                user_stats["last_solved_time"].pop(question_id, None)
                 break
 
     response = make_response(jsonify({"success": True}))
