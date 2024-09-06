@@ -2,26 +2,15 @@ import os
 import csv
 import random
 from collections import defaultdict
-from datetime import datetime
-from flask import Flask, render_template, jsonify, request, session
-from dotenv import dotenv_values
+from datetime import datetime, timedelta
+from flask import Flask, render_template, jsonify, request, make_response
+import json
 
 app = Flask(__name__)
 
-# app.secret_key = dotenv_values('.env')['SECRET_KEY']
 app.secret_key = os.environ.get('SECRET_KEY')
-# print("SECRET_KEY:", app.secret_key)
-
 
 QUESTIONS_PER_PAGE = 20
-
-user_stats = {
-    "solved_tags": defaultdict(int),
-    "solved_difficulties": defaultdict(int),
-    "solved_questions": set(),
-    "last_solved_time": {},
-}
-
 
 def load_questions():
     loading_questions = {}
@@ -60,30 +49,29 @@ def load_questions():
 
     return loading_questions, ["All"] + sorted(loading_companies)
 
-
-def get_user_stats():
-    if 'user_stats' not in session:
-        session['user_stats'] = {
-            "solved_tags": defaultdict(int),
-            "solved_difficulties": defaultdict(int),
-            "solved_questions": list(),  # Store as a list
-            "last_solved_time": {},
-        }
-    else:
-        # Convert lists back to sets for internal usage
-        session['user_stats']['solved_questions'] = set(session['user_stats']['solved_questions'])
-        
-    return session['user_stats']
-
-
-
 questions, companies = load_questions()
 
+def get_user_stats():
+    user_stats = request.cookies.get('user_stats')
+    if user_stats:
+        user_stats = json.loads(user_stats)
+        user_stats['solved_questions'] = set(user_stats['solved_questions'])
+    else:
+        user_stats = {
+            "solved_tags": defaultdict(int),
+            "solved_difficulties": defaultdict(int),
+            "solved_questions": set(),
+            "last_solved_time": {},
+        }
+    return user_stats
+
+def set_user_stats(response, user_stats):
+    user_stats['solved_questions'] = list(user_stats['solved_questions'])
+    response.set_cookie('user_stats', json.dumps(user_stats), max_age=31536000)
 
 @app.route("/")
 def index():
     return render_template("index.html", companies=companies)
-
 
 @app.route("/questions/<company>")
 def get_questions(company):
@@ -93,34 +81,32 @@ def get_questions(company):
     search_query = request.args.get("search", "").lower()
     company_questions = questions.get(company, [])
 
+    user_stats = get_user_stats()
+
     if tags and tags[0]:
-        company_questions = [
-            q for q in company_questions if all(tag in q["tags"] for tag in tags)
-        ]
+        company_questions = [q for q in company_questions if all(tag in q["tags"] for tag in tags)]
 
     if difficulties and difficulties[0]:
-        company_questions = [
-            q for q in company_questions if q["difficulty"] in difficulties
-        ]
+        company_questions = [q for q in company_questions if q["difficulty"] in difficulties]
 
     if search_query:
-        company_questions = [
-            q
-            for q in company_questions
-            if search_query in q["name"].lower() or search_query in q["id"].lower()
-        ]
+        company_questions = [q for q in company_questions if search_query in q["name"].lower() or search_query in q["id"].lower()]
+
+    # Update completed status based on user_stats
+    for question in company_questions:
+        question["completed"] = question["id"] in user_stats["solved_questions"]
 
     total_pages = (len(company_questions) - 1) // QUESTIONS_PER_PAGE + 1
     start = (page - 1) * QUESTIONS_PER_PAGE
     end = start + QUESTIONS_PER_PAGE
-    return jsonify(
-        {
-            "questions": company_questions[start:end],
-            "total_pages": total_pages,
-            "current_page": page,
-        }
-    )
-
+    
+    response = jsonify({
+        "questions": company_questions[start:end],
+        "total_pages": total_pages,
+        "current_page": page,
+    })
+    
+    return response
 
 @app.route("/update_progress", methods=["POST"])
 def update_progress():
@@ -130,65 +116,47 @@ def update_progress():
 
     user_stats = get_user_stats()
 
-    for _, company_questions in questions.items():
-        for question in company_questions:
-            if question["id"] == question_id:
-                question["completed"] = completed
-                break
-
     if completed:
         user_stats["solved_questions"].add(question_id)
-        for tag in question["tags"]:
-            if tag not in user_stats["solved_tags"]:
-                user_stats["solved_tags"][tag] = 0
-            user_stats["solved_tags"][tag] += 1
-        if question["difficulty"] not in user_stats["solved_difficulties"]:
-            user_stats["solved_difficulties"][question["difficulty"]] = 0
-        user_stats["solved_difficulties"][question["difficulty"]] += 1
+        for question in questions["All"]:
+            if question["id"] == question_id:
+                for tag in question["tags"]:
+                    user_stats["solved_tags"][tag] = user_stats["solved_tags"].get(tag, 0) + 1
+                user_stats["solved_difficulties"][question["difficulty"]] = user_stats["solved_difficulties"].get(question["difficulty"], 0) + 1
+                break
     else:
         user_stats["solved_questions"].discard(question_id)
-        for tag in question["tags"]:
-            if tag in user_stats["solved_tags"]:
-                user_stats["solved_tags"][tag] = max(0, user_stats["solved_tags"][tag] - 1)
-        if question["difficulty"] in user_stats["solved_difficulties"]:
-            user_stats["solved_difficulties"][question["difficulty"]] = max(
-                0, user_stats["solved_difficulties"][question["difficulty"]] - 1
-            )
+        for question in questions["All"]:
+            if question["id"] == question_id:
+                for tag in question["tags"]:
+                    user_stats["solved_tags"][tag] = max(0, user_stats["solved_tags"].get(tag, 0) - 1)
+                user_stats["solved_difficulties"][question["difficulty"]] = max(0, user_stats["solved_difficulties"].get(question["difficulty"], 0) - 1)
+                break
 
-    session['user_stats']['solved_questions'] = list(user_stats['solved_questions'])
-    session['user_stats'] = user_stats
-    return jsonify({"success": True})
-
-
-
+    response = make_response(jsonify({"success": True}))
+    set_user_stats(response, user_stats)
+    return response
 
 @app.route("/random_question/<company>")
 def random_question(company):
-    uncompleted = [q for q in questions[company] if not q["completed"]]
+    user_stats = get_user_stats()
+    uncompleted = [q for q in questions[company] if q["id"] not in user_stats["solved_questions"]]
     if uncompleted:
         return jsonify(random.choice(uncompleted))
 
     return jsonify({"message": "All questions completed"})
 
-
 @app.route("/reset_progress", methods=["POST"])
 def reset_progress():
-    for _, companies_questions in questions.items():
-        for question in companies_questions:
-            question["completed"] = False
-
-    user_stats["solved_tags"].clear()
-    user_stats["solved_difficulties"].clear()
-    user_stats["solved_questions"].clear()
-
-    return jsonify({"success": True})
-
+    response = make_response(jsonify({"success": True}))
+    response.delete_cookie('user_stats')
+    return response
 
 @app.route("/recommend_question", methods=["GET"])
 def recommend_question():
     user_stats = get_user_stats()
     company = request.args.get("company", "All")
-    possible_questions = [q for q in questions[company] if not q["completed"]]
+    possible_questions = [q for q in questions[company] if q["id"] not in user_stats["solved_questions"]]
 
     if not possible_questions:
         return jsonify({"message": "All questions completed"})
@@ -196,21 +164,12 @@ def recommend_question():
     current_time = datetime.now()
 
     def recommendation_score(question):
-        tag_score = sum(
-            user_stats["solved_tags"].get(tag, 0) for tag in question["tags"]
-        )
-
-        difficulty_score = user_stats["solved_difficulties"].get(
-            question["difficulty"], 0
-        )
-
+        tag_score = sum(user_stats["solved_tags"].get(tag, 0) for tag in question["tags"])
+        difficulty_score = user_stats["solved_difficulties"].get(question["difficulty"], 0)
         recency_score = question["recency_score"]
-
         time_decay = 1.0
         if question["id"] in user_stats["last_solved_time"]:
-            days_since_solved = (
-                current_time - user_stats["last_solved_time"][question["id"]]
-            ).days
+            days_since_solved = (current_time - datetime.fromisoformat(user_stats["last_solved_time"][question["id"]])).days
             time_decay = 1 / (1 + days_since_solved)
 
         combined_score = (
@@ -224,8 +183,6 @@ def recommend_question():
 
     recommended_question = max(possible_questions, key=recommendation_score)
     return jsonify(recommended_question)
-
-
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
