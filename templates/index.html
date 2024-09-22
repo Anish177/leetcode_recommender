@@ -424,30 +424,30 @@
           });
 
           const updateProgress = async (question) => {
-            await fetch("/update_progress", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                questionId: question.id,
-                completed: question.completed,
-              }),
-            });
-            if (
-              recommendedQuestion.value &&
-              recommendedQuestion.value.id === question.id
-            ) {
-              recommendedQuestion.value.completed = question.completed;
-            }
-            const index = questions.value.findIndex(
-              (q) => q.id === question.id
-            );
-            if (index !== -1) {
-              questions.value[index].completed = question.completed;
-            }
-            checkAllCompleted();
-          };
+              await fetch("/update_progress", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  questionId: question._id,  // Change this from question.id to question._id
+                  completed: question.completed,
+                }),
+              });
+              if (
+                recommendedQuestion.value &&
+                recommendedQuestion.value._id === question._id  // Change this from .id to ._id
+              ) {
+                recommendedQuestion.value.completed = question.completed;
+              }
+              const index = questions.value.findIndex(
+                (q) => q._id === question._id  // Change this from .id to ._id
+              );
+              if (index !== -1) {
+                questions.value[index].completed = question.completed;
+              }
+              checkAllCompleted();
+            };
 
           const toggleTagFilter = async (tag) => {
             const index = selectedTags.value.indexOf(tag);
