@@ -1,5 +1,7 @@
 # Leetcode question recommendation system
 
+***NOTE: web app has been paused to preserve resources, let me know if you would like to use it.***
+
 A SPA created using Flask to practice better for coding interviews.
 
 ### Features:
@@ -9,7 +11,7 @@ A SPA created using Flask to practice better for coding interviews.
 - Multi-user access
   
 
-Live link: https://remarkable-madelon-leetcode-recommender-4d8663ce.koyeb.app/
+Link: https://remarkable-madelon-leetcode-recommender-4d8663ce.koyeb.app/
 
 
 Have suggestions or issues? Let me know
